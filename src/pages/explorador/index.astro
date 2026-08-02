@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MapExplorer from "../../components/MapExplorer.astro";
+import { proximidad, ibcDistrital } from "../../lib/data";
+
+const u = proximidad.umbrales;
+const vmt = ibcDistrital.distritos.find((d: any) => d.distrito === "Villa Maria Del Triunfo");
+const sjl = ibcDistrital.distritos.find((d: any) => d.distrito === "San Juan De Lurigancho");
+const ves = ibcDistrital.distritos.find((d: any) => d.distrito === "Villa El Salvador");
+---
+<BaseLayout
+  title="Explorador"
+  description="El mapa que delimita las zonas: densidad de denuncias, colegios afectados y brecha de confianza por distrito en Lima y Callao."
+  mapAssets={true}
+>
+  <section class="section" style="padding-top:44px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Sala de situación</span>
+        <h1>El mapa que delimita las zonas.</h1>
+        <p class="lede">Densidad de denuncias, colegios afectados y brecha de confianza por distrito. Haz clic en cualquier distrito para ver su detalle completo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <MapExplorer />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Cómo leer el indicador</span>
+        <h2>Dos índices, una misma zona.</h2>
+      </div>
+      <div class="kpi-grid">
+        <div class="panel-card">
+          <h3>IEEE — Índice de Exposición Escolar a la Extorsión</h3>
+          <p>Densidad y proximidad de denuncias SIDPOL respecto a instituciones educativas, ponderada por población escolar expuesta.</p>
+        </div>
+        <div class="panel-card">
+          <h3>IBC — Índice de Brecha de Confianza</h3>
+          <p>Compara el percentil de denuncias registradas contra el percentil de una señal de desconfianza (ENAPRES). Solo se calcula en distritos con muestra suficiente (n≥80).</p>
+        </div>
+      </div>
+
+      <p class="note-callout" style="margin-top:28px;">
+        <b style="color:var(--ink)">Distritos destacados:</b> {vmt?.distrito} encabeza el índice de brecha
+        ({vmt?.brecha.toFixed(1)} — desconfianza muy por encima de su nivel de denuncia). {sjl?.distrito},
+        el distrito con más denuncias de Lima, muestra la relación más proporcional entre desconfianza y denuncia
+        (brecha {sjl?.brecha.toFixed(1)}). {ves?.distrito} no tiene pocas denuncias en términos absolutos — tiene
+        denuncias insuficientes para su nivel de desconfianza (brecha {ves?.brecha.toFixed(1)} sobre {ves?.denuncias_total.toLocaleString('es-PE')} denuncias totales).
+      </p>
+
+      <div class="section-head" style="margin-top:56px;">
+        <span class="eyebrow">Proximidad</span>
+        <h2>¿Qué tan cerca de los colegios ocurre la extorsión?</h2>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Umbral</th><th class="num">Denuncias</th><th class="num">% acumulado</th></tr></thead>
+          <tbody>
+            <tr><td>≤ 50 m</td><td class="num">{u["50"].n_denuncias}</td><td class="num">{u["50"].pct}%</td></tr>
+            <tr><td>≤ 100 m</td><td class="num">{u["100"].n_denuncias}</td><td class="num">{u["100"].pct}%</td></tr>
+            <tr><td>≤ 150 m</td><td class="num">{u["150"].n_denuncias}</td><td class="num">{u["150"].pct}%</td></tr>
+            <tr><td>≤ 200 m</td><td class="num">{u["200"].n_denuncias}</td><td class="num">{u["200"].pct}%</td></tr>
+            <tr><td>≤ 300 m</td><td class="num">{u["300"].n_denuncias}</td><td class="num">{u["300"].pct}%</td></tr>
+            <tr><td>≤ 500 m</td><td class="num">{u["500"].n_denuncias}</td><td class="num">{u["500"].pct}%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="kpi-limit" style="margin-top:14px;">Mediana de distancia: {proximidad.mediana_distancia_m.toFixed(0)} metros. Estas cifras usan solo el {proximidad.cobertura_geo_pct}% de denuncias con geolocalización precisa ({proximidad.n_geo_precisa.toLocaleString('es-PE')} de {proximidad.n_denuncias.toLocaleString('es-PE')}) — ver <a href="/metodologia/">Metodología</a> para el filtro de geocodificación.</p>
+    </div>
+  </section>
+</BaseLayout>

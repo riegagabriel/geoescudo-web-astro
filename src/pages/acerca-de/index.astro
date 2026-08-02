@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+<BaseLayout
+  title="Acerca de"
+  description="El equipo detrás de GeoEscudo, finalista del Hackathon RedPública Transforma del PNUD."
+>
+  <section class="section" style="padding-top:44px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Equipo</span>
+        <h1>Un equipo de ciencia de datos y ciencia social.</h1>
+      </div>
+      <p>Cinco integrantes: <b style="color:var(--ink)">Xiomara Salas Vega</b> (representante legal),
+      <b style="color:var(--ink)">Gabriel Riega Nuñez</b>, <b style="color:var(--ink)">Carlos Crespín Juarez</b>,
+      <b style="color:var(--ink)">André Rodríguez</b>, <b style="color:var(--ink)">Jaime Olivas Vera</b>.
+      Científicos sociales con formación en ciencia de datos y experiencia en estudios de crimen y seguridad
+      ciudadana en el Perú (incluye trabajo previo con el Instituto de Análisis Estratégico de la PUCP y con
+      el Ministerio del Interior).</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>El concurso</h2>
+      <p>GeoEscudo es finalista del Hackathon RedPública Transforma, edición Seguridad Ciudadana — una
+      convocatoria del Programa de las Naciones Unidas para el Desarrollo (PNUD), en alianza con Equipu y
+      SENAJU. Innovation Challenge UNDP-PER-00940.</p>
+      <p class="note-callout">Esta propuesta se trata como bien público: el PNUD puede utilizar, reproducir,
+      adaptar, implementar y escalar la solución bajo licencia no exclusiva, permanente y transferible.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Repositorio abierto</h2>
+      <p>Metodología, código ETL e instrumentos de campo, sistematizados y replicables a otros distritos,
+      otros delitos y a La Libertad.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="footer-logos">
+        <img src="/logos/logo_pnud.png" alt="PNUD" height="64" />
+        <img src="/logos/logo_hackaton.png" alt="Hackathon RedPública Transforma" height="42" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .footer-logos { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+</style>

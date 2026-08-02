@@ -1,0 +1,17 @@
+<svg viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GeoEscudo">
+  <title>GeoEscudo</title>
+  <defs>
+    <clipPath id="shield-wm"><path d="M30 4 C24.8 4 19.6 5.3 15 7.6 L15 26.9 C15 38.4 20.8 47.5 30 54.4 C39.2 47.5 45 38.4 45 26.9 L45 7.6 C40.4 5.3 35.2 4 30 4 Z"/></clipPath>
+  </defs>
+  <g clip-path="url(#shield-wm)">
+    <rect x="10" y="0" width="40" height="58" fill="#0F1E45"/>
+    <path d="M8 15 Q30 12 50 15" stroke="#2C4E8F" stroke-width="1.6" fill="none"/>
+    <path d="M8 23 Q30 20 50 23" stroke="#3B82F6" stroke-width="1.6" fill="none"/>
+    <path d="M8 31 Q30 28 50 31" stroke="#F0A24B" stroke-width="2" fill="none" stroke-dasharray="5 3.5"/>
+    <path d="M8 39 Q30 36 50 39" stroke="#2C4E8F" stroke-width="1.6" fill="none"/>
+    <path d="M8 47 Q30 44 50 47" stroke="#1E3A8A" stroke-width="1.6" fill="none"/>
+  </g>
+  <path d="M30 4 C24.8 4 19.6 5.3 15 7.6 L15 26.9 C15 38.4 20.8 47.5 30 54.4 C39.2 47.5 45 38.4 45 26.9 L45 7.6 C40.4 5.3 35.2 4 30 4 Z" fill="none" stroke="#5878A8" stroke-opacity=".5" stroke-width="0.8"/>
+  <text x="60" y="30" font-family="Public Sans, Segoe UI, system-ui, sans-serif" font-size="22" font-weight="800" fill="#E7ECF5">GeoEscudo</text>
+  <text x="60" y="47" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5" fill="#F0A24B">MEDIMOS EL SILENCIO</text>
+</svg>

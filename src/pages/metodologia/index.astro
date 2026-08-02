@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { proximidad } from "../../lib/data";
+---
+<BaseLayout
+  title="Metodología"
+  description="Fuentes de datos, el filtro de geocodificación, el Índice de Brecha de Confianza paso a paso, y la evidencia académica que sustenta el diseño de GeoEscudo."
+>
+  <section class="section" style="padding-top:44px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Metodología</span>
+        <h1>Cómo se construyen los números.</h1>
+      </div>
+
+      <h2>Fuentes de datos</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Fuente</th><th>Contenido</th><th>Corte</th></tr></thead>
+          <tbody>
+            <tr><td>MINEDU — Padrón Web / Censo Educativo</td><td>{proximidad.n_locales_educativos.toLocaleString('es-PE')} locales educativos activos georreferenciados (Lima Met. y Callao)</td><td>29/04/2026</td></tr>
+            <tr><td>PNP / SIDPOL-DGIS (observatorio MININTER)</td><td>{proximidad.n_denuncias.toLocaleString('es-PE')} denuncias de extorsión, Lima Met. y Callao</td><td>{proximidad.corte}</td></tr>
+            <tr><td>INEI — ENAPRES 2025, Cap. 400</td><td>Victimización, denuncia y motivos de no denuncia por extorsión (urbano, 15+)</td><td>2025</td></tr>
+            <tr><td>IGN Perú</td><td>Límites político-administrativos</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>El filtro de geocodificación</h2>
+      <p>SIDPOL georreferencia al centroide distrital las denuncias cuya dirección no puede geocodificar
+      automáticamente ({proximidad.n_puntos_relleno_excluidos} puntos de relleno detectados: ≥10 denuncias
+      en un mismo punto con &gt;50% de direcciones distintas entre sí). El análisis de proximidad usa solo
+      las {proximidad.n_geo_precisa.toLocaleString('es-PE')} denuncias con geolocalización precisa
+      ({proximidad.cobertura_geo_pct}% de cobertura) — esta limitación se declara explícitamente y se
+      convierte en argumento: la mala calidad de geocodificación de SIDPOL es otra "brecha de datos" que
+      GeoEscudo visibiliza.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>El Índice de Brecha de Confianza (IBC), paso a paso</h2>
+      <div class="mission-list">
+        <div class="mission-row"><span class="m-idx">0.1</span><div class="m-body"><p>Por distrito, se calcula el percentil relativo de denuncias registradas (SIDPOL) entre los distritos con muestra ENAPRES suficiente.</p></div></div>
+        <div class="mission-row"><span class="m-idx">0.2</span><div class="m-body"><p>Se calcula el percentil relativo de una señal de desconfianza construida con ENAPRES (inseguridad en institución educativa + mala calificación de la comisaría + mala calificación de la atención pronta de la PNP).</p></div></div>
+        <div class="mission-row"><span class="m-idx">0.3</span><div class="m-body"><p>Brecha = percentil de desconfianza − percentil de denuncias. Solo se calcula entre distritos con n≥80 en el módulo de percepción ENAPRES.</p></div></div>
+        <div class="mission-row"><span class="m-idx">0.4</span><div class="m-body"><p>¿Por qué percentiles y no valores crudos? Un conteo (denuncias) y un porcentaje (percepción) no están en la misma escala — comparar percentiles es la única forma estadísticamente honesta de cruzarlos.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Representatividad, privacidad y desplazamiento</h2>
+      <p><b style="color:var(--ink)">Representatividad de ENAPRES:</b> nacional urbano, departamentos y ciudades principales — no representativa a nivel distrital. El IBC lo resuelve trabajando con percentiles entre distritos con muestra suficiente, nunca con la tasa distrital cruda.</p>
+      <p><b style="color:var(--ink)">Privacidad desde el diseño (CITYCoP):</b> la vista pública agrega por distrito y rangos; el detalle por institución educativa individual se entrega solo por canal institucional (UGEL, municipio, comisaría).</p>
+      <p><b style="color:var(--ink)">Efecto desplazamiento:</b> el monitoreo incluye buffers adyacentes a las zonas priorizadas (Blattman et al., 2021, Bogotá) para que un eventual desplazamiento del delito sea observable, no un punto ciego.</p>
+      <p><b style="color:var(--ink)">Pipeline reproducible:</b> todo el código ETL vive en un repositorio abierto; cualquier cifra del sitio es rastreable a un script versionado, nunca a un cálculo manual suelto.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Evidencia académica que sustenta el diseño</h2>
+      <ul>
+        <li>Peyton, Sierra-Arévalo &amp; Rand (2019), <em>PNAS</em> — el contacto positivo policía-vecino aumenta la legitimidad percibida (experimento aleatorizado).</li>
+        <li>Gill et al. (2014), <em>J. Experimental Criminology</em> — el community policing mejora confianza y legitimidad de forma consistente, con efectos más débiles sobre el delito directo.</li>
+        <li>Tyler (2023); Sunshine &amp; Tyler (2003) — justicia procedimental: voz, neutralidad, respeto, confiabilidad.</li>
+        <li>Huaytalla (2019); Ramos Arias (2018); Oviedo Maravi (2021, PUCP) — el vacío peruano de datos y evaluación en participación ciudadana que GeoEscudo busca cerrar.</li>
+        <li>Blattman et al. (2021, Bogotá) — desplazamiento espacial del delito.</li>
+      </ul>
+      <p class="kpi-limit">Revisión de literatura completa (17 fuentes) disponible en el repositorio del proyecto.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+/*
+  GeoEscudo — tokens de diseño
+  Fuente única de verdad para ambas implementaciones (Astro y HTML/CSS/JS puro).
+  Aprobado: isotipo "curvas de nivel", tipografía display = Public Sans (peso alto),
+  sin display condensada separada. Modo único oscuro (decisión intencional).
+*/
+:root {
+  /* superficies */
+  --bg: #05070B;
+  --panel: #0D1220;
+  --panel-2: #10161F;
+  --surface: #1A212C;
+  --line: rgba(88, 120, 168, .22);
+  --line-strong: rgba(88, 120, 168, .4);
+
+  /* texto */
+  --ink: #E7ECF5;
+  --ink-2: #8FA3C8;
+  --ink-3: #5B6E8C;
+
+  /* acento — azul: lo registrado/oficial */
+  --blue: #3B82F6;
+  --blue-dim: #1E3A8A;
+
+  /* acento — ámbar: reservado EXCLUSIVAMENTE para cifra negra / desconfianza */
+  --amber: #F0A24B;
+  --amber-dim: #B45309;
+
+  /* semántico (independiente del acento) */
+  --good: #34D399;
+  --danger: #DC2626;
+
+  /* tipografía: dos familias, no tres.
+     Public Sans cubre display (peso 800) y cuerpo (peso 400/600) — decisión
+     explícita de Gabriel de no usar una condensada tipo cartel táctico.
+     IBM Plex Mono queda reservada a todo dato/etiqueta/cifra. */
+  --font-sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* motion */
+  --ease-standard: cubic-bezier(.2, .8, .2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+}

@@ -1,0 +1,863 @@
+{
+  "fuente": "PNP/SIDPOL-DGIS corte 31/05/2026 + MINEDU Padrón Web (IIEE activas)",
+  "corte": "31/05/2026",
+  "archivo_origen": "mininter_delitos_total_20260724_163626.csv",
+  "ambito": "Lima Metropolitana + Callao",
+  "metodo": "Distancia de cada denuncia de extorsión al local educativo activo más cercano; sjoin_nearest en UTM-18S. Numerador y denominador en denuncias. El análisis de proximidad usa SOLO denuncias con geolocalización precisa: se excluyen los puntos de relleno (centroides distritales) donde SIDPOL agrupa denuncias no geocodificables (criterio: ≥10 denuncias en un mismo punto con >50% de direcciones distintas).",
+  "n_denuncias": 15213,
+  "n_geo_precisa": 4205,
+  "cobertura_geo_pct": 27.6,
+  "n_puntos_relleno_excluidos": 65,
+  "n_servicios_educativos_activos": 33710,
+  "n_locales_educativos": 18273,
+  "mediana_distancia_m": 111.9,
+  "umbrales": {
+    "50": {
+      "n_denuncias": 618,
+      "pct": 14.7
+    },
+    "100": {
+      "n_denuncias": 1839,
+      "pct": 43.7
+    },
+    "150": {
+      "n_denuncias": 2849,
+      "pct": 67.8
+    },
+    "200": {
+      "n_denuncias": 3443,
+      "pct": 81.9
+    },
+    "300": {
+      "n_denuncias": 3887,
+      "pct": 92.4
+    },
+    "500": {
+      "n_denuncias": 4100,
+      "pct": 97.5
+    }
+  },
+  "afectados_100m": {
+    "n_locales": 5424,
+    "pct_locales": 29.7,
+    "alumnos_expuestos": 481525,
+    "docentes_expuestos": 27433,
+    "metodo": "Local educativo afectado = ≥1 denuncia dentro de su buffer de 100 m. Población expuesta = suma de alumnos y docentes (Censo 2025) de los servicios de esos locales."
+  },
+  "por_distrito": [
+    {
+      "distrito": "SAN JUAN DE LURIGANCHO",
+      "denuncias_geo_precisa": 419,
+      "denuncias_100m": 214,
+      "denuncias_total": 1810
+    },
+    {
+      "distrito": "ATE",
+      "denuncias_geo_precisa": 230,
+      "denuncias_100m": 116,
+      "denuncias_total": 1010
+    },
+    {
+      "distrito": "SAN JUAN DE MIRAFLORES",
+      "denuncias_geo_precisa": 176,
+      "denuncias_100m": 109,
+      "denuncias_total": 462
+    },
+    {
+      "distrito": "CALLAO",
+      "denuncias_geo_precisa": 218,
+      "denuncias_100m": 106,
+      "denuncias_total": 701
+    },
+    {
+      "distrito": "SAN MARTIN DE PORRES",
+      "denuncias_geo_precisa": 185,
+      "denuncias_100m": 101,
+      "denuncias_total": 629
+    },
+    {
+      "distrito": "VILLA EL SALVADOR",
+      "denuncias_geo_precisa": 225,
+      "denuncias_100m": 98,
+      "denuncias_total": 757
+    },
+    {
+      "distrito": "COMAS",
+      "denuncias_geo_precisa": 199,
+      "denuncias_100m": 98,
+      "denuncias_total": 873
+    },
+    {
+      "distrito": "LIMA",
+      "denuncias_geo_precisa": 193,
+      "denuncias_100m": 75,
+      "denuncias_total": 1601
+    },
+    {
+      "distrito": "PUENTE PIEDRA",
+      "denuncias_geo_precisa": 188,
+      "denuncias_100m": 67,
+      "denuncias_total": 776
+    },
+    {
+      "distrito": "LOS OLIVOS",
+      "denuncias_geo_precisa": 122,
+      "denuncias_100m": 63,
+      "denuncias_total": 558
+    },
+    {
+      "distrito": "INDEPENDENCIA",
+      "denuncias_geo_precisa": 100,
+      "denuncias_100m": 63,
+      "denuncias_total": 281
+    },
+    {
+      "distrito": "CHORRILLOS",
+      "denuncias_geo_precisa": 165,
+      "denuncias_100m": 62,
+      "denuncias_total": 592
+    },
+    {
+      "distrito": "SANTA ANITA",
+      "denuncias_geo_precisa": 113,
+      "denuncias_100m": 52,
+      "denuncias_total": 265
+    },
+    {
+      "distrito": "VILLA MARIA DEL TRIUNFO",
+      "denuncias_geo_precisa": 143,
+      "denuncias_100m": 47,
+      "denuncias_total": 452
+    },
+    {
+      "distrito": "RIMAC",
+      "denuncias_geo_precisa": 100,
+      "denuncias_100m": 45,
+      "denuncias_total": 271
+    },
+    {
+      "distrito": "EL AGUSTINO",
+      "denuncias_geo_precisa": 72,
+      "denuncias_100m": 43,
+      "denuncias_total": 170
+    },
+    {
+      "distrito": "VENTANILLA",
+      "denuncias_geo_precisa": 104,
+      "denuncias_100m": 43,
+      "denuncias_total": 302
+    },
+    {
+      "distrito": "SANTIAGO DE SURCO",
+      "denuncias_geo_precisa": 113,
+      "denuncias_100m": 37,
+      "denuncias_total": 313
+    },
+    {
+      "distrito": "CARABAYLLO",
+      "denuncias_geo_precisa": 83,
+      "denuncias_100m": 32,
+      "denuncias_total": 525
+    },
+    {
+      "distrito": "LA VICTORIA",
+      "denuncias_geo_precisa": 92,
+      "denuncias_100m": 30,
+      "denuncias_total": 279
+    },
+    {
+      "distrito": "LA PERLA",
+      "denuncias_geo_precisa": 64,
+      "denuncias_100m": 27,
+      "denuncias_total": 96
+    },
+    {
+      "distrito": "SAN MIGUEL",
+      "denuncias_geo_precisa": 49,
+      "denuncias_100m": 26,
+      "denuncias_total": 114
+    },
+    {
+      "distrito": "LURIGANCHO",
+      "denuncias_geo_precisa": 115,
+      "denuncias_100m": 24,
+      "denuncias_total": 314
+    },
+    {
+      "distrito": "PACHACAMAC",
+      "denuncias_geo_precisa": 62,
+      "denuncias_100m": 23,
+      "denuncias_total": 283
+    },
+    {
+      "distrito": "BELLAVISTA",
+      "denuncias_geo_precisa": 51,
+      "denuncias_100m": 22,
+      "denuncias_total": 105
+    },
+    {
+      "distrito": "SAN LUIS",
+      "denuncias_geo_precisa": 40,
+      "denuncias_100m": 20,
+      "denuncias_total": 90
+    },
+    {
+      "distrito": "BREÑA",
+      "denuncias_geo_precisa": 32,
+      "denuncias_100m": 20,
+      "denuncias_total": 81
+    },
+    {
+      "distrito": "LA MOLINA",
+      "denuncias_geo_precisa": 53,
+      "denuncias_100m": 19,
+      "denuncias_total": 198
+    },
+    {
+      "distrito": "JESUS MARIA",
+      "denuncias_geo_precisa": 28,
+      "denuncias_100m": 17,
+      "denuncias_total": 83
+    },
+    {
+      "distrito": "MIRAFLORES",
+      "denuncias_geo_precisa": 34,
+      "denuncias_100m": 16,
+      "denuncias_total": 102
+    },
+    {
+      "distrito": "LURIN",
+      "denuncias_geo_precisa": 66,
+      "denuncias_100m": 16,
+      "denuncias_total": 195
+    },
+    {
+      "distrito": "MAGDALENA DEL MAR",
+      "denuncias_geo_precisa": 27,
+      "denuncias_100m": 14,
+      "denuncias_total": 61
+    },
+    {
+      "distrito": "CARMEN DE LA LEGUA REYNOSO",
+      "denuncias_geo_precisa": 23,
+      "denuncias_100m": 13,
+      "denuncias_total": 35
+    },
+    {
+      "distrito": "SURQUILLO",
+      "denuncias_geo_precisa": 33,
+      "denuncias_100m": 13,
+      "denuncias_total": 80
+    },
+    {
+      "distrito": "ANCON",
+      "denuncias_geo_precisa": 48,
+      "denuncias_100m": 11,
+      "denuncias_total": 128
+    },
+    {
+      "distrito": "SAN BORJA",
+      "denuncias_geo_precisa": 32,
+      "denuncias_100m": 10,
+      "denuncias_total": 108
+    },
+    {
+      "distrito": "SAN ISIDRO",
+      "denuncias_geo_precisa": 37,
+      "denuncias_100m": 10,
+      "denuncias_total": 79
+    },
+    {
+      "distrito": "LINCE",
+      "denuncias_geo_precisa": 21,
+      "denuncias_100m": 10,
+      "denuncias_total": 54
+    },
+    {
+      "distrito": "PUEBLO LIBRE",
+      "denuncias_geo_precisa": 21,
+      "denuncias_100m": 8,
+      "denuncias_total": 67
+    },
+    {
+      "distrito": "PUCUSANA",
+      "denuncias_geo_precisa": 18,
+      "denuncias_100m": 5,
+      "denuncias_total": 18
+    },
+    {
+      "distrito": "CHACLACAYO",
+      "denuncias_geo_precisa": 22,
+      "denuncias_100m": 4,
+      "denuncias_total": 93
+    },
+    {
+      "distrito": "BARRANCO",
+      "denuncias_geo_precisa": 12,
+      "denuncias_100m": 4,
+      "denuncias_total": 38
+    },
+    {
+      "distrito": "MI PERU",
+      "denuncias_geo_precisa": 8,
+      "denuncias_100m": 4,
+      "denuncias_total": 8
+    },
+    {
+      "distrito": "SAN BARTOLO",
+      "denuncias_geo_precisa": 15,
+      "denuncias_100m": 1,
+      "denuncias_total": 15
+    },
+    {
+      "distrito": "PUNTA HERMOSA",
+      "denuncias_geo_precisa": 5,
+      "denuncias_100m": 1,
+      "denuncias_total": 16
+    },
+    {
+      "distrito": "PUNTA NEGRA",
+      "denuncias_geo_precisa": 13,
+      "denuncias_100m": 0,
+      "denuncias_total": 13
+    },
+    {
+      "distrito": "SANTA MARIA DEL MAR",
+      "denuncias_geo_precisa": 3,
+      "denuncias_100m": 0,
+      "denuncias_total": 3
+    },
+    {
+      "distrito": "SANTA ROSA",
+      "denuncias_geo_precisa": 12,
+      "denuncias_100m": 0,
+      "denuncias_total": 35
+    },
+    {
+      "distrito": "LA PUNTA",
+      "denuncias_geo_precisa": 9,
+      "denuncias_100m": 0,
+      "denuncias_total": 9
+    },
+    {
+      "distrito": "CIENEGUILLA",
+      "denuncias_geo_precisa": 12,
+      "denuncias_100m": 0,
+      "denuncias_total": 65
+    }
+  ],
+  "top_iiee": [
+    {
+      "nombre": "1236 ALFONSO BARRANTES LINGAN",
+      "distrito": "Ate",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 1447,
+      "docentes": 63,
+      "denuncias_100m": 27
+    },
+    {
+      "nombre": "162 ANGELITOS DE JESUS",
+      "distrito": "Ate",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 312,
+      "docentes": 13,
+      "denuncias_100m": 24
+    },
+    {
+      "nombre": "LA SAGRADA FAMILIA",
+      "distrito": "Ate",
+      "tipo_gestion": "Privada",
+      "alumnos": 2135,
+      "docentes": 101,
+      "denuncias_100m": 17
+    },
+    {
+      "nombre": "CHIQUIGENIOS",
+      "distrito": "San Juan de Lurigancho",
+      "tipo_gestion": "Privada",
+      "alumnos": 150,
+      "docentes": 15,
+      "denuncias_100m": 15
+    },
+    {
+      "nombre": "JOSE GALVEZ EGUSQUIZA",
+      "distrito": "San Juan de Miraflores",
+      "tipo_gestion": "Privada",
+      "alumnos": 0,
+      "docentes": 0,
+      "denuncias_100m": 15
+    },
+    {
+      "nombre": "LUCERITOS",
+      "distrito": "Chorrillos",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 9,
+      "docentes": 0,
+      "denuncias_100m": 14
+    },
+    {
+      "nombre": "JUAN PABLO II - C",
+      "distrito": "Chorrillos",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 8,
+      "docentes": 0,
+      "denuncias_100m": 14
+    },
+    {
+      "nombre": "ILLARI 4",
+      "distrito": "Chorrillos",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 9,
+      "docentes": 0,
+      "denuncias_100m": 14
+    },
+    {
+      "nombre": "LAS AMERICAS",
+      "distrito": "San Juan de Miraflores",
+      "tipo_gestion": "Privada",
+      "alumnos": 247,
+      "docentes": 4,
+      "denuncias_100m": 14
+    },
+    {
+      "nombre": "STEVE JOBS",
+      "distrito": "San Juan de Lurigancho",
+      "tipo_gestion": "Privada",
+      "alumnos": 0,
+      "docentes": 0,
+      "denuncias_100m": 14
+    },
+    {
+      "nombre": "PEDACITO DE CIELO",
+      "distrito": "Santa Anita",
+      "tipo_gestion": "Privada",
+      "alumnos": 15,
+      "docentes": 3,
+      "denuncias_100m": 11
+    },
+    {
+      "nombre": "1046 JULIO RAMON RIBEYRO",
+      "distrito": "El Agustino",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 185,
+      "docentes": 10,
+      "denuncias_100m": 11
+    },
+    {
+      "nombre": "JIREH",
+      "distrito": "Santa Anita",
+      "tipo_gestion": "Privada",
+      "alumnos": 117,
+      "docentes": 20,
+      "denuncias_100m": 11
+    },
+    {
+      "nombre": "NIÑO DIOS",
+      "distrito": "Santa Anita",
+      "tipo_gestion": "Privada",
+      "alumnos": 0,
+      "docentes": 0,
+      "denuncias_100m": 11
+    },
+    {
+      "nombre": "JESUS NOS AMA",
+      "distrito": "Comas",
+      "tipo_gestion": "Privada",
+      "alumnos": 46,
+      "docentes": 4,
+      "denuncias_100m": 10
+    },
+    {
+      "nombre": "SEMILLITAS DEL SABER",
+      "distrito": "Comas",
+      "tipo_gestion": "Privada",
+      "alumnos": 6,
+      "docentes": 1,
+      "denuncias_100m": 10
+    },
+    {
+      "nombre": "NUESTRA SEÑORA DE FATIMA",
+      "distrito": "La Perla",
+      "tipo_gestion": "Privada",
+      "alumnos": 231,
+      "docentes": 24,
+      "denuncias_100m": 8
+    },
+    {
+      "nombre": "NUEVA AMERICA",
+      "distrito": "Lima",
+      "tipo_gestion": "Privada",
+      "alumnos": 8,
+      "docentes": 2,
+      "denuncias_100m": 8
+    },
+    {
+      "nombre": "MI CASITA MAGICA",
+      "distrito": "San Miguel",
+      "tipo_gestion": "Privada",
+      "alumnos": 20,
+      "docentes": 2,
+      "denuncias_100m": 8
+    },
+    {
+      "nombre": "NUESTRA SEÑORA DE FATIMA",
+      "distrito": "La Perla",
+      "tipo_gestion": "Privada",
+      "alumnos": 39,
+      "docentes": 4,
+      "denuncias_100m": 8
+    },
+    {
+      "nombre": "PEDACITO DE CIELO 1",
+      "distrito": "San Luis",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 12,
+      "docentes": 0,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "MIS PRIMEROS PASOS 4",
+      "distrito": "San Luis",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 11,
+      "docentes": 0,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "RAYITOS DE SOL 3",
+      "distrito": "San Luis",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 12,
+      "docentes": 0,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "MIS PRIMEROS PASOS 3",
+      "distrito": "San Luis",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 13,
+      "docentes": 0,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "652 19 HORACIO ZEBALLOS GAMEZ",
+      "distrito": "San Juan de Miraflores",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 424,
+      "docentes": 34,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "1216 MIGUEL GRAU SEMINARIO",
+      "distrito": "San Luis",
+      "tipo_gestion": "Pública de gestión directa",
+      "alumnos": 929,
+      "docentes": 42,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "SOR MARIA FAUSTINA KOWALSKA",
+      "distrito": "San Luis",
+      "tipo_gestion": "Privada",
+      "alumnos": 38,
+      "docentes": 4,
+      "denuncias_100m": 7
+    },
+    {
+      "nombre": "INDEPENDENCIA",
+      "distrito": "Miraflores",
+      "tipo_gestion": "Privada",
+      "alumnos": 0,
+      "docentes": 0,
+      "denuncias_100m": 6
+    },
+    {
+      "nombre": "PAOLA",
+      "distrito": "Lurin",
+      "tipo_gestion": "Privada",
+      "alumnos": 0,
+      "docentes": 0,
+      "denuncias_100m": 6
+    },
+    {
+      "nombre": "SANTA GENOVEVA",
+      "distrito": "Lurin",
+      "tipo_gestion": "Privada",
+      "alumnos": 0,
+      "docentes": 0,
+      "denuncias_100m": 6
+    }
+  ],
+  "expuestos_por_distrito": [
+    {
+      "distrito": "ANCÓN",
+      "locales_afectados": 5,
+      "alumnos_expuestos": 2005,
+      "docentes_expuestos": 97
+    },
+    {
+      "distrito": "ATE",
+      "locales_afectados": 257,
+      "alumnos_expuestos": 25642,
+      "docentes_expuestos": 1508
+    },
+    {
+      "distrito": "BARRANCO",
+      "locales_afectados": 5,
+      "alumnos_expuestos": 3567,
+      "docentes_expuestos": 249
+    },
+    {
+      "distrito": "BELLAVISTA",
+      "locales_afectados": 126,
+      "alumnos_expuestos": 4594,
+      "docentes_expuestos": 315
+    },
+    {
+      "distrito": "BREÑA",
+      "locales_afectados": 25,
+      "alumnos_expuestos": 5185,
+      "docentes_expuestos": 318
+    },
+    {
+      "distrito": "CALLAO",
+      "locales_afectados": 121,
+      "alumnos_expuestos": 24727,
+      "docentes_expuestos": 1429
+    },
+    {
+      "distrito": "CARABAYLLO",
+      "locales_afectados": 35,
+      "alumnos_expuestos": 3897,
+      "docentes_expuestos": 227
+    },
+    {
+      "distrito": "CARMEN DE LA LEGUA REYNOSO",
+      "locales_afectados": 20,
+      "alumnos_expuestos": 4666,
+      "docentes_expuestos": 264
+    },
+    {
+      "distrito": "CHACLACAYO",
+      "locales_afectados": 6,
+      "alumnos_expuestos": 972,
+      "docentes_expuestos": 76
+    },
+    {
+      "distrito": "CHORRILLOS",
+      "locales_afectados": 70,
+      "alumnos_expuestos": 10911,
+      "docentes_expuestos": 691
+    },
+    {
+      "distrito": "COMAS",
+      "locales_afectados": 130,
+      "alumnos_expuestos": 24928,
+      "docentes_expuestos": 1423
+    },
+    {
+      "distrito": "EL AGUSTINO",
+      "locales_afectados": 36,
+      "alumnos_expuestos": 11250,
+      "docentes_expuestos": 535
+    },
+    {
+      "distrito": "INDEPENDENCIA",
+      "locales_afectados": 132,
+      "alumnos_expuestos": 21270,
+      "docentes_expuestos": 1090
+    },
+    {
+      "distrito": "JESÚS MARÍA",
+      "locales_afectados": 18,
+      "alumnos_expuestos": 2786,
+      "docentes_expuestos": 257
+    },
+    {
+      "distrito": "LA MOLINA",
+      "locales_afectados": 16,
+      "alumnos_expuestos": 4338,
+      "docentes_expuestos": 435
+    },
+    {
+      "distrito": "LA PERLA",
+      "locales_afectados": 17,
+      "alumnos_expuestos": 3339,
+      "docentes_expuestos": 277
+    },
+    {
+      "distrito": "LA VICTORIA",
+      "locales_afectados": 28,
+      "alumnos_expuestos": 6051,
+      "docentes_expuestos": 457
+    },
+    {
+      "distrito": "LIMA",
+      "locales_afectados": 1918,
+      "alumnos_expuestos": 46398,
+      "docentes_expuestos": 2252
+    },
+    {
+      "distrito": "LINCE",
+      "locales_afectados": 9,
+      "alumnos_expuestos": 451,
+      "docentes_expuestos": 34
+    },
+    {
+      "distrito": "LOS OLIVOS",
+      "locales_afectados": 372,
+      "alumnos_expuestos": 15424,
+      "docentes_expuestos": 932
+    },
+    {
+      "distrito": "LURIGANCHO",
+      "locales_afectados": 79,
+      "alumnos_expuestos": 7500,
+      "docentes_expuestos": 400
+    },
+    {
+      "distrito": "LURIN",
+      "locales_afectados": 45,
+      "alumnos_expuestos": 6870,
+      "docentes_expuestos": 376
+    },
+    {
+      "distrito": "MAGDALENA DEL MAR",
+      "locales_afectados": 17,
+      "alumnos_expuestos": 3868,
+      "docentes_expuestos": 286
+    },
+    {
+      "distrito": "MI PERÚ",
+      "locales_afectados": 8,
+      "alumnos_expuestos": 2022,
+      "docentes_expuestos": 122
+    },
+    {
+      "distrito": "MIRAFLORES",
+      "locales_afectados": 250,
+      "alumnos_expuestos": 1629,
+      "docentes_expuestos": 171
+    },
+    {
+      "distrito": "PACHACAMAC",
+      "locales_afectados": 28,
+      "alumnos_expuestos": 7225,
+      "docentes_expuestos": 378
+    },
+    {
+      "distrito": "PUCUSANA",
+      "locales_afectados": 3,
+      "alumnos_expuestos": 995,
+      "docentes_expuestos": 51
+    },
+    {
+      "distrito": "PUEBLO LIBRE",
+      "locales_afectados": 55,
+      "alumnos_expuestos": 824,
+      "docentes_expuestos": 48
+    },
+    {
+      "distrito": "PUENTE PIEDRA",
+      "locales_afectados": 195,
+      "alumnos_expuestos": 18722,
+      "docentes_expuestos": 998
+    },
+    {
+      "distrito": "PUNTA HERMOSA",
+      "locales_afectados": 1,
+      "alumnos_expuestos": 273,
+      "docentes_expuestos": 11
+    },
+    {
+      "distrito": "RÍMAC",
+      "locales_afectados": 48,
+      "alumnos_expuestos": 6921,
+      "docentes_expuestos": 447
+    },
+    {
+      "distrito": "SAN BARTOLO",
+      "locales_afectados": 1,
+      "alumnos_expuestos": 0,
+      "docentes_expuestos": 0
+    },
+    {
+      "distrito": "SAN BORJA",
+      "locales_afectados": 9,
+      "alumnos_expuestos": 1119,
+      "docentes_expuestos": 87
+    },
+    {
+      "distrito": "SAN ISIDRO",
+      "locales_afectados": 8,
+      "alumnos_expuestos": 2589,
+      "docentes_expuestos": 168
+    },
+    {
+      "distrito": "SAN JUAN DE LURIGANCHO",
+      "locales_afectados": 541,
+      "alumnos_expuestos": 84020,
+      "docentes_expuestos": 3943
+    },
+    {
+      "distrito": "SAN JUAN DE MIRAFLORES",
+      "locales_afectados": 97,
+      "alumnos_expuestos": 13387,
+      "docentes_expuestos": 834
+    },
+    {
+      "distrito": "SAN LUIS",
+      "locales_afectados": 28,
+      "alumnos_expuestos": 2066,
+      "docentes_expuestos": 101
+    },
+    {
+      "distrito": "SAN MARTÍN DE PORRES",
+      "locales_afectados": 141,
+      "alumnos_expuestos": 19564,
+      "docentes_expuestos": 1275
+    },
+    {
+      "distrito": "SAN MIGUEL",
+      "locales_afectados": 28,
+      "alumnos_expuestos": 3811,
+      "docentes_expuestos": 293
+    },
+    {
+      "distrito": "SANTA ANITA",
+      "locales_afectados": 31,
+      "alumnos_expuestos": 10868,
+      "docentes_expuestos": 716
+    },
+    {
+      "distrito": "SANTIAGO DE SURCO",
+      "locales_afectados": 47,
+      "alumnos_expuestos": 18952,
+      "docentes_expuestos": 1220
+    },
+    {
+      "distrito": "SURQUILLO",
+      "locales_afectados": 14,
+      "alumnos_expuestos": 1442,
+      "docentes_expuestos": 106
+    },
+    {
+      "distrito": "VENTANILLA",
+      "locales_afectados": 50,
+      "alumnos_expuestos": 9307,
+      "docentes_expuestos": 545
+    },
+    {
+      "distrito": "VILLA EL SALVADOR",
+      "locales_afectados": 285,
+      "alumnos_expuestos": 22229,
+      "docentes_expuestos": 1289
+    },
+    {
+      "distrito": "VILLA MARÍA DEL TRIUNFO",
+      "locales_afectados": 69,
+      "alumnos_expuestos": 12921,
+      "docentes_expuestos": 702
+    }
+  ]
+}

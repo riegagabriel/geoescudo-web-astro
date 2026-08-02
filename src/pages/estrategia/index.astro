@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { enapresDistrital } from "../../lib/data";
+
+const agg = enapresDistrital.agregado_lima_callao;
+---
+<BaseLayout
+  title="Estrategia"
+  description="El ciclo de encuentros comunidad-escuela-policía: cómo GeoEscudo convierte la desconfianza medida en acción de community policing."
+>
+  <section class="section" style="padding-top:44px;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Intervención</span>
+        <h1>De medir el silencio a romperlo.</h1>
+        <p class="lede">Cercanía → Confianza → Denuncia → Mejores datos → Mejor prevención → Más confianza.</p>
+        <p>La mayoría no denuncia por miedo o desconfianza, no por indiferencia. La evidencia internacional del <em>community policing</em> muestra el camino: el contacto positivo y no coercitivo entre policía y comunidad aumenta la confianza y la disposición a denunciar (Peyton, Sierra-Arévalo &amp; Rand, 2019, <em>PNAS</em>; Gill et al., 2014).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Línea base</span>
+        <h2>Así está hoy la relación comunidad-policía en Lima y Callao</h2>
+      </div>
+      <div class="kpi-grid">
+        <div class="panel-card kpi-block"><div class="kpi-num">{agg.comisaria_mala_pct}%</div><div class="kpi-label">Califica mal el trabajo de su comisaría</div></div>
+        <div class="panel-card kpi-block"><div class="kpi-num">{agg.pnp_atencion_mala_pct}%</div><div class="kpi-label">Califica mal a la PNP en atención pronta</div></div>
+        <div class="panel-card kpi-block"><div class="kpi-num">{agg.pnp_informar_mala_pct}%</div><div class="kpi-label">Califica mal a la PNP en informar a la comunidad</div></div>
+        <div class="panel-card kpi-block"><div class="kpi-num">{agg.inseguridad_col_educativa_pct}%</div><div class="kpi-label">Se siente inseguro/a en una institución educativa</div></div>
+      </div>
+      <p class="note-callout" style="margin-top:22px;">
+        Lectura: esto no es hostilidad hacia la policía — es demanda insatisfecha de presencia y
+        comunicación. Entre quienes se sienten inseguros en su barrio, el {agg.poca_presencia_policial_pct}%
+        cita la poca presencia policial como razón (ENAPRES 2025, n={agg.n_modulo_percepcion.toLocaleString('es-PE')}).
+        Los encuentros escuela-policía convierten esa demanda en contacto positivo, y el contacto en confianza.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">El ciclo</span>
+        <h2>Cuatro sesiones en 2–3 IIEE priorizadas</h2>
+      </div>
+      <div class="mission-list">
+        <div class="mission-row"><span class="m-idx">0.1</span><div class="m-body"><h3>Línea base</h3><p>Encuesta corta a estudiantes (confianza, conocimiento de rutas de denuncia, disposición a denunciar; ítems de Tom Tyler) + entrevista a docentes/directivos.</p></div></div>
+        <div class="mission-row"><span class="m-idx">0.2</span><div class="m-body"><h3>Encuentro con la comisaría</h3><p>La Oficina de Participación Ciudadana explica cómo opera un caso de extorsión: ruta de denuncia, protección de identidad, seguimiento.</p></div></div>
+        <div class="mission-row"><span class="m-idx">0.3</span><div class="m-body"><h3>Cartografía social</h3><p>Estudiantes y vecinos marcan zonas y horarios de riesgo que el IEEE no captura; esta capa retroalimenta la plataforma.</p></div></div>
+        <div class="mission-row"><span class="m-idx">0.4</span><div class="m-body"><h3>Cierre</h3><p>Segunda encuesta (mismo instrumento) + devolución de resultados + registro de compromisos institucionales.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Justicia procedimental</span>
+        <h2>Las cuatro dimensiones (Tyler)</h2>
+      </div>
+      <div class="kpi-grid">
+        <div class="panel-card"><h3>🗣️ Voz</h3><p>Estudiantes, docentes y vecinos mapean sus zonas y horarios de miedo.</p></div>
+        <div class="panel-card"><h3>⚖️ Neutralidad</h3><p>Reglas claras del espacio de encuentro.</p></div>
+        <div class="panel-card"><h3>🤝 Respeto</h3><p>Encuentros en la escuela, terreno propio de la comunidad, vía BAPE/OPC/CODISEC existentes.</p></div>
+        <div class="panel-card"><h3>✅ Confiabilidad</h3><p>Los compromisos institucionales quedan registrados con su estado de cumplimiento.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Éxito</span>
+        <h2>Cómo mediremos el éxito</h2>
+      </div>
+      <p><b style="color:var(--ink)">Primario (60 días):</b> ↑ confianza y legitimidad percibida, ↑ conocimiento de rutas de denuncia, participación efectiva (≥60 estudiantes, ≥20 docentes/directivos).</p>
+      <p><b style="color:var(--ink)">Intermedio (6–12 meses):</b> ↑ denuncias en zonas intervenidas — aquí subir denuncias es éxito: es la cifra negra saliendo a la luz.</p>
+      <p><b style="color:var(--ink)">Largo plazo (&gt;12 meses):</b> ↓ exposición escolar (IEEE).</p>
+      <p class="note-callout" style="margin-top:8px;">Diseño de evaluación: antes/después en los mismos sitios, sin grupo de comparación — limitación reconocida explícitamente, opción viable dado el plazo y presupuesto del piloto de 60 días.</p>
+      <p class="note-callout">Escalabilidad: La Libertad, la otra región elegible de la convocatoria, muestra una victimización por extorsión ~3× la nacional y una cifra negra de ~90% — la metodología es directamente replicable ahí.</p>
+    </div>
+  </section>
+</BaseLayout>
