@@ -31,5 +31,8 @@ const { title, description, mapAssets = false } = Astro.props as Props;
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      import "../scripts/site-motion.ts";
+    </script>
   </body>
 </html>

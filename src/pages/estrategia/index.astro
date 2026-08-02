@@ -25,11 +25,11 @@ const agg = enapresDistrital.agregado_lima_callao;
         <span class="eyebrow">Línea base</span>
         <h2>Así está hoy la relación comunidad-policía en Lima y Callao</h2>
       </div>
-      <div class="kpi-grid">
-        <div class="panel-card kpi-block"><div class="kpi-num">{agg.comisaria_mala_pct}%</div><div class="kpi-label">Califica mal el trabajo de su comisaría</div></div>
-        <div class="panel-card kpi-block"><div class="kpi-num">{agg.pnp_atencion_mala_pct}%</div><div class="kpi-label">Califica mal a la PNP en atención pronta</div></div>
-        <div class="panel-card kpi-block"><div class="kpi-num">{agg.pnp_informar_mala_pct}%</div><div class="kpi-label">Califica mal a la PNP en informar a la comunidad</div></div>
-        <div class="panel-card kpi-block"><div class="kpi-num">{agg.inseguridad_col_educativa_pct}%</div><div class="kpi-label">Se siente inseguro/a en una institución educativa</div></div>
+      <div class="kpi-grid" data-reveal-group>
+        <div class="panel-card kpi-block reveal"><div class="kpi-num count-up" data-target={agg.comisaria_mala_pct} data-decimals="1" data-suffix="%">0%</div><div class="kpi-label">Califica mal el trabajo de su comisaría</div></div>
+        <div class="panel-card kpi-block reveal"><div class="kpi-num count-up" data-target={agg.pnp_atencion_mala_pct} data-decimals="1" data-suffix="%">0%</div><div class="kpi-label">Califica mal a la PNP en atención pronta</div></div>
+        <div class="panel-card kpi-block reveal"><div class="kpi-num count-up" data-target={agg.pnp_informar_mala_pct} data-decimals="1" data-suffix="%">0%</div><div class="kpi-label">Califica mal a la PNP en informar a la comunidad</div></div>
+        <div class="panel-card kpi-block reveal"><div class="kpi-num count-up" data-target={agg.inseguridad_col_educativa_pct} data-decimals="1" data-suffix="%">0%</div><div class="kpi-label">Se siente inseguro/a en una institución educativa</div></div>
       </div>
       <p class="note-callout" style="margin-top:22px;">
         Lectura: esto no es hostilidad hacia la policía — es demanda insatisfecha de presencia y
@@ -46,11 +46,11 @@ const agg = enapresDistrital.agregado_lima_callao;
         <span class="eyebrow">El ciclo</span>
         <h2>Cuatro sesiones en 2–3 IIEE priorizadas</h2>
       </div>
-      <div class="mission-list">
-        <div class="mission-row"><span class="m-idx">0.1</span><div class="m-body"><h3>Línea base</h3><p>Encuesta corta a estudiantes (confianza, conocimiento de rutas de denuncia, disposición a denunciar; ítems de Tom Tyler) + entrevista a docentes/directivos.</p></div></div>
-        <div class="mission-row"><span class="m-idx">0.2</span><div class="m-body"><h3>Encuentro con la comisaría</h3><p>La Oficina de Participación Ciudadana explica cómo opera un caso de extorsión: ruta de denuncia, protección de identidad, seguimiento.</p></div></div>
-        <div class="mission-row"><span class="m-idx">0.3</span><div class="m-body"><h3>Cartografía social</h3><p>Estudiantes y vecinos marcan zonas y horarios de riesgo que el IEEE no captura; esta capa retroalimenta la plataforma.</p></div></div>
-        <div class="mission-row"><span class="m-idx">0.4</span><div class="m-body"><h3>Cierre</h3><p>Segunda encuesta (mismo instrumento) + devolución de resultados + registro de compromisos institucionales.</p></div></div>
+      <div class="mission-list" data-reveal-group>
+        <div class="mission-row reveal"><span class="m-idx">0.1</span><div class="m-body"><h3>Línea base</h3><p>Encuesta corta a estudiantes (confianza, conocimiento de rutas de denuncia, disposición a denunciar; ítems de Tom Tyler) + entrevista a docentes/directivos.</p></div></div>
+        <div class="mission-row reveal"><span class="m-idx">0.2</span><div class="m-body"><h3>Encuentro con la comisaría</h3><p>La Oficina de Participación Ciudadana explica cómo opera un caso de extorsión: ruta de denuncia, protección de identidad, seguimiento.</p></div></div>
+        <div class="mission-row reveal"><span class="m-idx">0.3</span><div class="m-body"><h3>Cartografía social</h3><p>Estudiantes y vecinos marcan zonas y horarios de riesgo que el IEEE no captura; esta capa retroalimenta la plataforma.</p></div></div>
+        <div class="mission-row reveal"><span class="m-idx">0.4</span><div class="m-body"><h3>Cierre</h3><p>Segunda encuesta (mismo instrumento) + devolución de resultados + registro de compromisos institucionales.</p></div></div>
       </div>
     </div>
   </section>
@@ -61,11 +61,11 @@ const agg = enapresDistrital.agregado_lima_callao;
         <span class="eyebrow">Justicia procedimental</span>
         <h2>Las cuatro dimensiones (Tyler)</h2>
       </div>
-      <div class="kpi-grid">
-        <div class="panel-card"><h3>🗣️ Voz</h3><p>Estudiantes, docentes y vecinos mapean sus zonas y horarios de miedo.</p></div>
-        <div class="panel-card"><h3>⚖️ Neutralidad</h3><p>Reglas claras del espacio de encuentro.</p></div>
-        <div class="panel-card"><h3>🤝 Respeto</h3><p>Encuentros en la escuela, terreno propio de la comunidad, vía BAPE/OPC/CODISEC existentes.</p></div>
-        <div class="panel-card"><h3>✅ Confiabilidad</h3><p>Los compromisos institucionales quedan registrados con su estado de cumplimiento.</p></div>
+      <div class="kpi-grid" data-reveal-group>
+        <div class="panel-card reveal"><h3>🗣️ Voz</h3><p>Estudiantes, docentes y vecinos mapean sus zonas y horarios de miedo.</p></div>
+        <div class="panel-card reveal"><h3>⚖️ Neutralidad</h3><p>Reglas claras del espacio de encuentro.</p></div>
+        <div class="panel-card reveal"><h3>🤝 Respeto</h3><p>Encuentros en la escuela, terreno propio de la comunidad, vía BAPE/OPC/CODISEC existentes.</p></div>
+        <div class="panel-card reveal"><h3>✅ Confiabilidad</h3><p>Los compromisos institucionales quedan registrados con su estado de cumplimiento.</p></div>
       </div>
     </div>
   </section>

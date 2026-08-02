@@ -35,12 +35,12 @@ const ves = ibcDistrital.distritos.find((d: any) => d.distrito === "Villa El Sal
         <span class="eyebrow">Cómo leer el indicador</span>
         <h2>Dos índices, una misma zona.</h2>
       </div>
-      <div class="kpi-grid">
-        <div class="panel-card">
+      <div class="kpi-grid" data-reveal-group>
+        <div class="panel-card reveal">
           <h3>IEEE — Índice de Exposición Escolar a la Extorsión</h3>
           <p>Densidad y proximidad de denuncias SIDPOL respecto a instituciones educativas, ponderada por población escolar expuesta.</p>
         </div>
-        <div class="panel-card">
+        <div class="panel-card reveal">
           <h3>IBC — Índice de Brecha de Confianza</h3>
           <p>Compara el percentil de denuncias registradas contra el percentil de una señal de desconfianza (ENAPRES). Solo se calcula en distritos con muestra suficiente (n≥80).</p>
         </div>
@@ -58,7 +58,7 @@ const ves = ibcDistrital.distritos.find((d: any) => d.distrito === "Villa El Sal
         <span class="eyebrow">Proximidad</span>
         <h2>¿Qué tan cerca de los colegios ocurre la extorsión?</h2>
       </div>
-      <div class="table-scroll">
+      <div class="table-scroll reveal">
         <table>
           <thead><tr><th>Umbral</th><th class="num">Denuncias</th><th class="num">% acumulado</th></tr></thead>
           <tbody>

@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SignalField from "../components/SignalField.astro";
 import { proximidad, enapresExtorsion, fmt } from "../lib/data";
 
 const cifraNegra = enapresExtorsion.dominios.find((d: any) => d.dominio === "Lima + Callao (ciudad)");
 const afectados = proximidad.afectados_100m;
+const alumnosDocentes = afectados.alumnos_expuestos + afectados.docentes_expuestos;
 ---
 <BaseLayout
   title="Portada"
@@ -11,6 +13,7 @@ const afectados = proximidad.afectados_100m;
 >
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
+    <SignalField />
     <div class="wrap hero-inner">
       <span class="eyebrow">Inteligencia territorial · Lima y Callao</span>
       <h1>Medimos el silencio<br />para romperlo.</h1>
@@ -32,19 +35,19 @@ const afectados = proximidad.afectados_100m;
 
   <section class="section kpi-open">
     <div class="wrap">
-      <div class="kpi-grid">
-        <div class="panel-card kpi-block">
-          <div class="kpi-num">{cifraNegra.cifra_negra_pct}%</div>
+      <div class="kpi-grid" data-reveal-group>
+        <div class="panel-card kpi-block reveal">
+          <div class="kpi-num count-up" data-target={cifraNegra.cifra_negra_pct} data-decimals="1" data-suffix="%">0.0%</div>
           <div class="kpi-label">No denuncia su victimización por extorsión</div>
           <p class="kpi-limit">Lima + Callao, ENAPRES 2025 (n={fmt(cifraNegra.n_respondentes)}). Por cada denuncia registrada hay ≈{cifraNegra.victimas_por_denuncia} víctimas reales.</p>
         </div>
-        <div class="panel-card kpi-block">
-          <div class="kpi-num">{fmt(afectados.n_locales)}</div>
+        <div class="panel-card kpi-block reveal">
+          <div class="kpi-num count-up" data-target={afectados.n_locales} data-decimals="0">0</div>
           <div class="kpi-label">Locales educativos con denuncia ≤100 m</div>
           <p class="kpi-limit">{afectados.pct_locales}% del total de locales activos en Lima y Callao (fuente: MINEDU + SIDPOL).</p>
         </div>
-        <div class="panel-card kpi-block">
-          <div class="kpi-num">{fmt(afectados.alumnos_expuestos + afectados.docentes_expuestos)}</div>
+        <div class="panel-card kpi-block reveal">
+          <div class="kpi-num count-up" data-target={alumnosDocentes} data-decimals="0">0</div>
           <div class="kpi-label">Alumnos y docentes expuestos</div>
           <p class="kpi-limit">Población censada (Censo Educativo) en los locales afectados por extorsión en su entorno inmediato.</p>
         </div>
@@ -58,22 +61,22 @@ const afectados = proximidad.afectados_100m;
         <span class="eyebrow">El recorrido</span>
         <h2>Del diagnóstico territorial a la acción.</h2>
       </div>
-      <div class="mission-list">
-        <div class="mission-row">
+      <div class="mission-list" data-reveal-group>
+        <div class="mission-row reveal">
           <span class="m-idx">0.1</span>
           <div class="m-body">
             <h3>El mapa delimita las zonas</h3>
             <p>El Índice de Brecha de Confianza (IBC) compara, por distrito, cuánto se denuncia frente a cuánto se desconfía. <a href="/explorador/">Explorar el mapa →</a></p>
           </div>
         </div>
-        <div class="mission-row">
+        <div class="mission-row reveal">
           <span class="m-idx">0.2</span>
           <div class="m-body">
             <h3>Identificamos las IIEE priorizadas</h3>
             <p>Cruce de exposición real (IEEE), brecha de confianza (IBC) y viabilidad institucional. <a href="/iiee-priorizadas/">Ver la priorización →</a></p>
           </div>
         </div>
-        <div class="mission-row">
+        <div class="mission-row reveal">
           <span class="m-idx">0.3</span>
           <div class="m-body">
             <h3>Desplegamos la estrategia</h3>
@@ -86,7 +89,7 @@ const afectados = proximidad.afectados_100m;
 </BaseLayout>
 
 <style>
-  .hero { position: relative; padding: 88px 0 56px; overflow: hidden; }
+  .hero { position: relative; padding: 88px 0 56px; overflow: hidden; min-height: min(88vh, 720px); display: flex; align-items: center; }
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
     background:
@@ -97,6 +100,11 @@ const afectados = proximidad.afectados_100m;
   .hero-bg::after {
     content: ""; position: absolute; inset: 0; opacity: .04;
     background: repeating-linear-gradient(0deg, #fff 0px, transparent 1px, transparent 3px);
+  }
+  .hero :global(.signal-field) { z-index: 0; opacity: .85; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(5,7,11,.75) 100%);
   }
   .hero-inner { position: relative; z-index: 1; }
   .hero h1 { margin: 18px 0 20px; max-width: 14ch; }

@@ -1,6 +1,13 @@
 @import url("/tokens.css");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap");
 
+:root {
+  /* motion: curvas de easing (emil-design-eng / apple-design) — nunca ease-in en UI */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -39,7 +46,7 @@ p { color: var(--ink-2); max-width: 68ch; }
 .lede { font-size: 1.08rem; color: var(--ink-2); max-width: 62ch; }
 
 code, .mono { font-family: var(--font-mono); }
-.tabular { font-variant-numeric: tabular-nums; }
+.tabular, .count-up { font-variant-numeric: tabular-nums; }
 
 .freshness-chip {
   display: inline-flex; align-items: center; gap: 6px;
@@ -56,8 +63,23 @@ code, .mono { font-family: var(--font-mono); }
 .badge.b-metodologia { background: rgba(59,130,246,.15); color: var(--blue); }
 .badge.b-actualizacion { background: rgba(52,211,153,.14); color: var(--good); }
 
+/* Tarjeta con "spotlight" — el borde se ilumina bajo el cursor (redesign-existing-projects: surface upgrades) */
 .panel-card {
+  position: relative;
   background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px;
+  transition: border-color 200ms var(--ease-out-strong), transform 200ms var(--ease-out-strong);
+  --mx: 50%; --my: 50%;
+}
+.panel-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: radial-gradient(220px circle at var(--mx) var(--my), rgba(240,162,75,.55), transparent 65%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity 250ms var(--ease-out-strong); pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .panel-card:hover::before { opacity: 1; }
+  .panel-card:hover { transform: translateY(-2px); }
 }
 
 .kpi-block .kpi-num { font: 800 2.3rem/1 var(--font-mono); color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -77,6 +99,10 @@ th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--lin
 th { font: 700 .68rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
 .table-scroll { overflow-x: auto; }
+tbody tr { transition: background-color 150ms var(--ease-out-strong); }
+@media (hover: hover) and (pointer: fine) {
+  tbody tr:hover { background-color: rgba(255,255,255,.03); }
+}
 
 .section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .section:last-of-type { border-bottom: none; }
@@ -87,9 +113,12 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   font: 700 .82rem/1 var(--font-mono); letter-spacing: .02em;
-  padding: 13px 22px; border-radius: 8px; text-decoration: none; transition: all var(--dur-fast) ease;
+  padding: 13px 22px; border-radius: 8px; text-decoration: none;
   border: 1px solid var(--line);
+  transition: background-color 180ms var(--ease-out-strong), border-color 180ms var(--ease-out-strong),
+              box-shadow 180ms var(--ease-out-strong), transform 120ms var(--ease-out-strong), color 180ms var(--ease-out-strong);
 }
+.btn:active, .btn.is-pressed { transform: scale(0.97); transition-duration: 90ms; }
 .btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
 .btn.primary:hover { background: #2f6fe0; box-shadow: 0 0 20px rgba(59,130,246,.4); }
 .btn.secondary { color: var(--ink-2); background: transparent; }
@@ -97,6 +126,22 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 
 .note-callout {
   border-left: 2px solid var(--blue-dim); padding-left: 16px; font-size: .88rem; color: var(--ink-3); max-width: 66ch;
+}
+
+/* ---------- Scroll reveal (IntersectionObserver + stagger, ver src/lib/reveal.ts) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(4px);
+  transition: opacity 640ms var(--ease-out-strong), transform 640ms var(--ease-out-strong), filter 640ms var(--ease-out-strong);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible { opacity: 1; transform: none; filter: blur(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transform: none; filter: none; transition: opacity 300ms ease; }
+  .panel-card, .panel-card::before, .btn, tbody tr { transition: none !important; }
+  .panel-card:hover { transform: none; }
 }
 
 @media (max-width: 640px) {

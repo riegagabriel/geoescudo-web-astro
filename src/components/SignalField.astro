@@ -1,0 +1,211 @@
+---
+// Fondo animado del hero: una red de señales sobre curvas topográficas,
+// coherente con el isotipo "curvas de nivel". Representa, en abstracto, el
+// territorio de distritos/IIEE conectado por datos — y los "pulsos" ámbar que
+// atraviesan la red son la metáfora visual de la tesis del proyecto: una
+// denuncia (la señal) abriéndose paso a través del silencio (la red azul en calma).
+// Generativo, sin fotografía — decisión explícita de Gabriel para evitar
+// cualquier riesgo de licencias o de estigmatizar personas reales.
+---
+<div class="signal-field" aria-hidden="true">
+  <canvas id="signal-canvas"></canvas>
+</div>
+
+<style>
+  .signal-field {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .signal-field canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+</style>
+
+<script>
+  const canvas = document.getElementById("signal-canvas") as HTMLCanvasElement | null;
+  if (canvas) {
+    const ctx = canvas.getContext("2d")!;
+    const root = canvas.closest(".signal-field") as HTMLElement;
+    const host = root.parentElement as HTMLElement;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let nodes: { x: number; y: number; r: number }[] = [];
+    let edges: [number, number][] = [];
+    type Pulse = { edge: [number, number]; t: number; dur: number };
+    let pulses: Pulse[] = [];
+
+    // paridad con --blue / --blue-dim / --amber de tokens.css
+    const BLUE = "59,130,246";
+    const AMBER = "240,162,75";
+
+    function seedNodes() {
+      const count = Math.max(24, Math.round((W * H) / 34000));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 1.1 + Math.random() * 1.6,
+      }));
+      edges = [];
+      const maxDist = Math.min(W, H) * 0.16;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+          if (Math.hypot(dx, dy) < maxDist) edges.push([i, j]);
+        }
+      }
+    }
+
+    function resize() {
+      W = host.clientWidth;
+      H = host.clientHeight;
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      seedNodes();
+    }
+
+    // Paralaje suave: la posición objetivo del puntero se persigue con
+    // interpolación (lerp), nunca de golpe — sensación "con inercia", no artificial.
+    const pointer = { x: 0.5, y: 0.5 };
+    const parallax = { x: 0, y: 0 };
+    host.addEventListener("pointermove", (e) => {
+      const rect = host.getBoundingClientRect();
+      pointer.x = (e.clientX - rect.left) / rect.width - 0.5;
+      pointer.y = (e.clientY - rect.top) / rect.height - 0.5;
+    });
+
+    let phase = 0;
+    let lastPulseAt = 0;
+    let raf = 0;
+    let running = true;
+
+    function maybeSpawnPulse(now: number) {
+      if (pulses.length >= 2) return;
+      if (now - lastPulseAt < 1400 + Math.random() * 1600) return;
+      if (!edges.length) return;
+      lastPulseAt = now;
+      const edge = edges[Math.floor(Math.random() * edges.length)];
+      pulses.push({ edge, t: 0, dur: 900 + Math.random() * 500 });
+    }
+
+    function draw(now: number, dt: number) {
+      ctx.clearRect(0, 0, W, H);
+
+      if (!reduceMotion) {
+        parallax.x += (pointer.x * 14 - parallax.x) * 0.06;
+        parallax.y += (pointer.y * 10 - parallax.y) * 0.06;
+        phase += dt * 0.00006;
+      }
+
+      // curvas de nivel (idénticas en espíritu al isotipo)
+      ctx.save();
+      ctx.translate(parallax.x * 0.4, parallax.y * 0.4);
+      const bands = 5;
+      for (let b = 0; b < bands; b++) {
+        const y = (H / (bands + 1)) * (b + 1);
+        ctx.beginPath();
+        for (let x = -20; x <= W + 20; x += 20) {
+          const wobble = Math.sin(x * 0.006 + phase * 6 + b) * 10;
+          const yy = y + wobble;
+          if (x === -20) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+        }
+        ctx.strokeStyle = `rgba(${BLUE},${0.05 + (b === 2 ? 0.03 : 0)})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // red de nodos
+      ctx.save();
+      ctx.translate(parallax.x, parallax.y);
+      ctx.strokeStyle = `rgba(${BLUE},.12)`;
+      ctx.lineWidth = 1;
+      edges.forEach(([a, b]) => {
+        ctx.beginPath();
+        ctx.moveTo(nodes[a].x, nodes[a].y);
+        ctx.lineTo(nodes[b].x, nodes[b].y);
+        ctx.stroke();
+      });
+      nodes.forEach((n) => {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${BLUE},.35)`;
+        ctx.fill();
+      });
+
+      // pulsos ámbar: la señal atravesando la red
+      pulses.forEach((p) => {
+        const [a, b] = p.edge;
+        const na = nodes[a], nb = nodes[b];
+        const k = Math.min(1, p.t / p.dur);
+        const ease = 1 - Math.pow(1 - k, 3); // ease-out cúbico
+        const x = na.x + (nb.x - na.x) * ease;
+        const y = na.y + (nb.y - na.y) * ease;
+
+        ctx.beginPath();
+        ctx.moveTo(na.x, na.y);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = `rgba(${AMBER},.55)`;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x, y, 2.6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${AMBER},.9)`;
+        ctx.shadowColor = `rgba(${AMBER},.8)`;
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (k >= 1) {
+          const ringT = Math.min(1, Math.max(0, (p.t - p.dur) / 500));
+          ctx.beginPath();
+          ctx.arc(nb.x, nb.y, 3 + ringT * 16, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${AMBER},${0.5 * (1 - ringT)})`;
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+        }
+      });
+      ctx.restore();
+
+      if (!reduceMotion) {
+        pulses = pulses.filter((p) => p.t < p.dur + 500);
+        pulses.forEach((p) => (p.t += dt));
+        maybeSpawnPulse(now);
+      }
+    }
+
+    let last = performance.now();
+    function loop(now: number) {
+      if (!running) return;
+      const dt = now - last;
+      last = now;
+      draw(now, dt);
+      raf = requestAnimationFrame(loop);
+    }
+
+    const io = new IntersectionObserver(([entry]) => {
+      running = entry.isIntersecting;
+      if (running && !reduceMotion) {
+        last = performance.now();
+        raf = requestAnimationFrame(loop);
+      } else {
+        cancelAnimationFrame(raf);
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { running = false; cancelAnimationFrame(raf); }
+      else if (!reduceMotion) { running = true; last = performance.now(); raf = requestAnimationFrame(loop); }
+    });
+
+    let resizeTimer = 0;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(resize, 150);
+    });
+
+    resize();
+    io.observe(host);
+    draw(performance.now(), 16);
+    if (!reduceMotion) { raf = requestAnimationFrame(loop); }
+  }
+</script>

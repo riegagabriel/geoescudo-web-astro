@@ -14,7 +14,7 @@ import { proximidad } from "../../lib/data";
       </div>
 
       <h2>Fuentes de datos</h2>
-      <div class="table-scroll">
+      <div class="table-scroll reveal">
         <table>
           <thead><tr><th>Fuente</th><th>Contenido</th><th>Corte</th></tr></thead>
           <tbody>
@@ -44,11 +44,11 @@ import { proximidad } from "../../lib/data";
   <section class="section">
     <div class="wrap">
       <h2>El Índice de Brecha de Confianza (IBC), paso a paso</h2>
-      <div class="mission-list">
-        <div class="mission-row"><span class="m-idx">0.1</span><div class="m-body"><p>Por distrito, se calcula el percentil relativo de denuncias registradas (SIDPOL) entre los distritos con muestra ENAPRES suficiente.</p></div></div>
-        <div class="mission-row"><span class="m-idx">0.2</span><div class="m-body"><p>Se calcula el percentil relativo de una señal de desconfianza construida con ENAPRES (inseguridad en institución educativa + mala calificación de la comisaría + mala calificación de la atención pronta de la PNP).</p></div></div>
-        <div class="mission-row"><span class="m-idx">0.3</span><div class="m-body"><p>Brecha = percentil de desconfianza − percentil de denuncias. Solo se calcula entre distritos con n≥80 en el módulo de percepción ENAPRES.</p></div></div>
-        <div class="mission-row"><span class="m-idx">0.4</span><div class="m-body"><p>¿Por qué percentiles y no valores crudos? Un conteo (denuncias) y un porcentaje (percepción) no están en la misma escala — comparar percentiles es la única forma estadísticamente honesta de cruzarlos.</p></div></div>
+      <div class="mission-list" data-reveal-group>
+        <div class="mission-row reveal"><span class="m-idx">0.1</span><div class="m-body"><p>Por distrito, se calcula el percentil relativo de denuncias registradas (SIDPOL) entre los distritos con muestra ENAPRES suficiente.</p></div></div>
+        <div class="mission-row reveal"><span class="m-idx">0.2</span><div class="m-body"><p>Se calcula el percentil relativo de una señal de desconfianza construida con ENAPRES (inseguridad en institución educativa + mala calificación de la comisaría + mala calificación de la atención pronta de la PNP).</p></div></div>
+        <div class="mission-row reveal"><span class="m-idx">0.3</span><div class="m-body"><p>Brecha = percentil de desconfianza − percentil de denuncias. Solo se calcula entre distritos con n≥80 en el módulo de percepción ENAPRES.</p></div></div>
+        <div class="mission-row reveal"><span class="m-idx">0.4</span><div class="m-body"><p>¿Por qué percentiles y no valores crudos? Un conteo (denuncias) y un porcentaje (percepción) no están en la misma escala — comparar percentiles es la única forma estadísticamente honesta de cruzarlos.</p></div></div>
       </div>
     </div>
   </section>
