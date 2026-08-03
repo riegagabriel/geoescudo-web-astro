@@ -17,7 +17,8 @@
       </div>
       <div id="hud-legend">
         <div class="row"><span class="sw" style="background:var(--amber)"></span> Denuncias (mapa de calor + puntos al acercar zoom)</div>
-        <div class="row"><span class="sw sw-icon">🏫</span> Locales educativos afectados (tamaño = denuncias ≤100 m)</div>
+        <div class="row"><span class="sw sw-icon" style="color:#B33F2B">🏫</span> Colegios en rango de denuncias (rojo, tamaño = denuncias ≤100 m)</div>
+        <div class="row"><span class="sw sw-icon" style="color:#3D5A80">🏫</span> Resto de colegios (azul, visible al acercar zoom)</div>
         <div style="margin-top:2px;">Brecha de confianza por distrito</div>
         <div class="grad"></div>
         <div class="scale-labels"><span>denuncia proporcional</span><span>brecha alta</span></div>
@@ -26,7 +27,7 @@
 
     <div id="layers">
       <div class="chip active" data-layer="heat">Densidad</div>
-      <div class="chip active" data-layer="iiee">Colegios afectados</div>
+      <div class="chip active" data-layer="iiee">Colegios</div>
       <div class="chip active" data-layer="distritos">Brecha por distrito</div>
     </div>
 
@@ -152,22 +153,27 @@
     document.getElementById("panel")?.classList.remove("open");
   });
 
-  // Glifo de escuela (SDF): un solo canal de forma que MapLibre tiñe con
-  // icon-color — reemplaza el círculo genérico que no convencía a Gabriel.
+  // Ícono oficial Font Awesome Free "school" (fa-solid fa-school), a pedido
+  // de Gabriel — reemplaza el glifo dibujado a mano. Se rasteriza a un canvas
+  // 64x64 y se sube a MapLibre como imagen SDF (un solo canal de forma que
+  // se tiñe vía icon-color): azul para colegios en general, rojo para los
+  // que están en el rango/cercanía de denuncias.
+  // Fuente: Font Awesome Free 6.7.2 (CC BY 4.0) — solid/school.svg
   const SCHOOL_SVG = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path fill="#000" d="M12 2 22 10.5H19V21H14V15H10V21H5V10.5H2Z"/>
-      <rect fill="#000" x="10.4" y="16.2" width="3.2" height="4.8"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+      <path fill="#000" d="M337.8 5.4C327-1.8 313-1.8 302.2 5.4L166.3 96 48 96C21.5 96 0 117.5 0 144L0 464c0 26.5 21.5 48 48 48l208 0 0-96c0-35.3 28.7-64 64-64s64 28.7 64 64l0 96 208 0c26.5 0 48-21.5 48-48l0-320c0-26.5-21.5-48-48-48L473.7 96 337.8 5.4zM96 192l32 0c8.8 0 16 7.2 16 16l0 64c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-64c0-8.8 7.2-16 16-16zm400 16c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 64c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-64zM96 320l32 0c8.8 0 16 7.2 16 16l0 64c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-64c0-8.8 7.2-16 16-16zm400 16c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 64c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-64zM232 176a88 88 0 1 1 176 0 88 88 0 1 1 -176 0zm88-48c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-16 0 0-16c0-8.8-7.2-16-16-16z"/>
     </svg>`;
 
   function loadSchoolIcon(): Promise<ImageData> {
     return new Promise((resolve, reject) => {
-      const img = new Image(64, 64);
+      const img = new Image();
       img.onload = () => {
         const canvas = document.createElement("canvas");
         canvas.width = 64; canvas.height = 64;
         const ctx = canvas.getContext("2d")!;
-        ctx.drawImage(img, 0, 0, 64, 64);
+        // viewBox 640x512 -> centrar en un lienzo cuadrado de 64x64
+        const w = 64, h = 64 * (512 / 640);
+        ctx.drawImage(img, 0, (64 - h) / 2, w, h);
         resolve(ctx.getImageData(0, 0, 64, 64));
       };
       img.onerror = reject;
@@ -178,10 +184,11 @@
   Promise.all([
     loadGeojson("distritos.geojson"),
     loadGeojson("iiee_afectadas.geojson"),
+    loadGeojson("iiee_todas.geojson"),
     loadGeojson("heatmap_denuncias.geojson"),
     loadSchoolIcon(),
-  ]).then(([DISTRITOS, IIEE, HEATMAP, SCHOOL_ICON]) => {
-    initMap(DISTRITOS, IIEE, HEATMAP, SCHOOL_ICON);
+  ]).then(([DISTRITOS, IIEE_AFECTADAS, IIEE_TODAS, HEATMAP, SCHOOL_ICON]) => {
+    initMap(DISTRITOS, IIEE_AFECTADAS, IIEE_TODAS, HEATMAP, SCHOOL_ICON);
   }).catch((err) => {
     const status = document.getElementById("map-status");
     if (status) { status.textContent = "No se pudieron cargar los datos del mapa. Intenta recargar la página."; }
@@ -196,7 +203,7 @@
     return [];
   }
 
-  function initMap(DISTRITOS: any, IIEE: any, HEATMAP: any, SCHOOL_ICON: ImageData) {
+  function initMap(DISTRITOS: any, IIEE_AFECTADAS: any, IIEE_TODAS: any, HEATMAP: any, SCHOOL_ICON: ImageData) {
     // @ts-ignore — maplibregl viene del script CDN cargado en BaseLayout
     const map = new maplibregl.Map({
       container: "map",
@@ -232,7 +239,8 @@
       map.addImage("school-icon", SCHOOL_ICON, { sdf: true });
 
       map.addSource("distritos", { type: "geojson", data: DISTRITOS });
-      map.addSource("iiee", { type: "geojson", data: IIEE });
+      map.addSource("iiee-afectadas", { type: "geojson", data: IIEE_AFECTADAS });
+      map.addSource("iiee-todas", { type: "geojson", data: IIEE_TODAS });
       map.addSource("heat", { type: "geojson", data: HEATMAP });
 
       map.addLayer({
@@ -275,12 +283,25 @@
         }
       });
 
+      // Todos los colegios activos (contexto) — azul, solo visible al
+      // acercar zoom (son ~13 mil puntos; a escala ciudad saturarían el mapa).
       map.addLayer({
-        id: "iiee-icons", type: "symbol", source: "iiee",
-        paint: { "icon-color": "#3D5A80", "icon-opacity": 0.92 },
+        id: "iiee-icons-all", type: "symbol", source: "iiee-todas", minzoom: 13,
+        filter: ["==", ["get", "denuncias_100m"], 0],
+        paint: { "icon-color": "#3D5A80", "icon-opacity": 0.55 },
+        layout: {
+          "icon-image": "school-icon", "icon-size": 0.28, "icon-allow-overlap": true,
+        }
+      });
+
+      // Colegios en el rango/cercanía de denuncias (≤100m) — rojo, siempre
+      // visibles: es la señal principal del proyecto.
+      map.addLayer({
+        id: "iiee-icons-affected", type: "symbol", source: "iiee-afectadas",
+        paint: { "icon-color": "#B33F2B", "icon-opacity": 0.95 },
         layout: {
           "icon-image": "school-icon",
-          "icon-size": ["interpolate", ["linear"], ["get", "denuncias_100m"], 1, 0.3, 15, 0.85],
+          "icon-size": ["interpolate", ["linear"], ["get", "denuncias_100m"], 1, 0.32, 15, 0.9],
           "icon-allow-overlap": true,
         }
       });
@@ -295,9 +316,9 @@
       });
       map.on("click", "distritos-fill", (e: any) => { if (e.features.length) openPanel(e.features[0].properties); });
 
-      map.on("mouseenter", "iiee-icons", () => { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "iiee-icons", () => { map.getCanvas().style.cursor = ""; });
-      map.on("click", "iiee-icons", (e: any) => {
+      map.on("mouseenter", "iiee-icons-affected", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "iiee-icons-affected", () => { map.getCanvas().style.cursor = ""; });
+      map.on("click", "iiee-icons-affected", (e: any) => {
         if (!e.features.length) return;
         const p = e.features[0].properties;
         // @ts-ignore
@@ -305,7 +326,7 @@
           .setLngLat(e.lngLat)
           .setHTML(`
             <div class="geoescudo-popup">
-              <span class="pop-badge" style="background:#3D5A801f;color:#3D5A80;">🏫 Institución educativa</span>
+              <span class="pop-badge" style="background:#B33F2B1f;color:#B33F2B;">🏫 En rango de denuncias</span>
               <h4>${p.nombre}</h4>
               <div class="pop-kv">
                 <b>Nivel:</b> ${p.nivel_modalidad || "—"}<br>
@@ -316,6 +337,27 @@
                 <b>Código modular:</b> ${p.codigo_modular || "—"}<br>
                 <b>Alumnos:</b> ${p.alumnos} · <b>Docentes:</b> ${p.docentes}<br>
                 <b>Denuncias ≤100 m:</b> ${p.denuncias_100m}
+              </div>
+            </div>`)
+          .addTo(map);
+      });
+
+      map.on("mouseenter", "iiee-icons-all", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "iiee-icons-all", () => { map.getCanvas().style.cursor = ""; });
+      map.on("click", "iiee-icons-all", (e: any) => {
+        if (!e.features.length) return;
+        const p = e.features[0].properties;
+        // @ts-ignore
+        new maplibregl.Popup({ closeButton: true, offset: 10, maxWidth: "220px" })
+          .setLngLat(e.lngLat)
+          .setHTML(`
+            <div class="geoescudo-popup">
+              <span class="pop-badge" style="background:#3D5A801f;color:#3D5A80;">🏫 Institución educativa</span>
+              <h4>${p.nombre}</h4>
+              <div class="pop-kv">
+                <b>Gestión:</b> ${p.tipo_gestion || "—"}<br>
+                <b>Distrito:</b> ${p.distrito}<br>
+                Sin denuncias registradas en su entorno inmediato (≤100 m).
               </div>
             </div>`)
           .addTo(map);
@@ -349,7 +391,7 @@
       chip.addEventListener("click", () => {
         const layer = (chip as HTMLElement).dataset.layer;
         const ids = layer === "heat" ? ["heat-layer", "denuncia-points"]
-          : layer === "iiee" ? ["iiee-icons"]
+          : layer === "iiee" ? ["iiee-icons-affected", "iiee-icons-all"]
           : ["distritos-fill", "distritos-line"];
         const nowActive = !chip.classList.contains("active");
         chip.classList.toggle("active");
