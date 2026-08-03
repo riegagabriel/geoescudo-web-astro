@@ -3,8 +3,8 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <div class="footer-attrib">
-      <img src="/logos/logo_pnud.png" alt="Programa de las Naciones Unidas para el Desarrollo (PNUD)" height="46" />
-      <img src="/logos/logo_hackaton.png" alt="Hackathon RedPública Transforma" height="30" />
+      <img src="/logos/logo_pnud_trim.png" alt="Programa de las Naciones Unidas para el Desarrollo (PNUD)" height="72" />
+      <img src="/logos/logo_hackaton.png" alt="Hackathon RedPública Transforma — Edición Seguridad Ciudadana" height="56" class="hackathon-logo" />
     </div>
     <div class="footer-text">
       <p>GeoEscudo — finalista del Hackathon RedPública Transforma, PNUD. Innovation Challenge UNDP-PER-00940.</p>
@@ -14,10 +14,17 @@
 </footer>
 
 <style>
-  .site-footer { border-top: 1px solid var(--line); padding: 40px 0; margin-top: 40px; }
+  .site-footer { border-top: 1px solid var(--line); padding: 44px 0; margin-top: 40px; }
   .footer-inner { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between; }
-  .footer-attrib { display: flex; align-items: center; gap: 22px; }
-  .footer-attrib img { opacity: .92; filter: saturate(.9); }
-  .footer-text p { margin: 0 0 6px; font-size: .8rem; color: var(--ink-3); max-width: 52ch; }
-  .footer-meta { font-family: var(--font-mono); font-size: .7rem !important; letter-spacing: .01em; }
+  .footer-attrib { display: flex; align-items: center; gap: 26px; }
+  .footer-attrib img { display: block; }
+  .hackathon-logo { border-radius: 8px; }
+  .footer-text p { margin: 0 0 6px; font-size: .8rem; color: var(--ink-2); max-width: 52ch; }
+  .footer-meta { font-family: var(--font-mono); font-size: .7rem !important; letter-spacing: .01em; color: var(--ink-3); }
+
+  @media (max-width: 640px) {
+    .footer-attrib { gap: 18px; }
+    .footer-attrib img[height="72"] { height: 52px; }
+    .footer-attrib img[height="56"] { height: 40px; }
+  }
 </style>

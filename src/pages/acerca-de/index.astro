@@ -1,5 +1,38 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const equipo = [
+  {
+    nombre: "Xiomara Salas Vega",
+    rol: "Representante legal",
+    foto: "/images/equipo/FOTO_XIOMARA_SALAS.jpg",
+    bio: "Licenciada en Ciencia Política por la Universidad Nacional Mayor de San Marcos, con especialización en Políticas Públicas y uso de herramientas cuantitativas de investigación. Cuenta con experiencia en diversas entidades del sector público, analizando data, formulando estrategias y/o diseñando e implementando políticas de carácter nacional. Actualmente presta servicios en el área de investigación y análisis de datos al Instituto de Analítica Social e Inteligencia Estratégica (PULSO PUCP), además de continuar laborando en el sector público. Entre sus temas de interés se encuentran la comunicación política, campañas electorales, seguridad ciudadana y poblaciones vulnerables.",
+  },
+  {
+    nombre: "Gabriel Riega Nuñez",
+    rol: "",
+    foto: "/images/equipo/FOTO_GABRIEL.jpg",
+    bio: "Politólogo por la Pontificia Universidad Católica del Perú (PUCP), especializado en Ciencia de Datos. Ha formado parte del Instituto de Analítica Social e Inteligencia Estratégica (PULSO-PUCP) y de la Dirección de Registro Electoral del RENIEC, y actualmente es Asistente de Cátedra en la PUCP. Es coautor de los Reportes de Investigación de la serie RENIEC Electoral y autor/coautor de investigaciones sobre comportamiento legislativo y representación política, incluyendo una ponencia aceptada en el XIII Congreso Latinoamericano de Ciencia Política (ALACIP 2026). Asimismo, es egresado del Programa de Análisis de Datos para la Criminalidad y ha participado en la gestión de postulaciones a fondos de investigación en proyectos sobre policiamiento y seguridad ciudadana en PULSO-PUCP. Sus principales líneas de investigación incluyen el análisis legislativo, la inteligencia artificial aplicada a las ciencias sociales, la seguridad ciudadana y la transformación digital del sector público.",
+  },
+  {
+    nombre: "Carlos Crespín Juarez",
+    rol: "",
+    foto: "/images/equipo/FOTO_CRESPIN.jpg",
+    bio: "Politólogo por la Pontificia Universidad Católica del Perú, especializado en políticas públicas y analítica de datos, con experiencia como analista de datos en el sector privado para proyectos de investigación de mercados y estudios de opinión pública. Formó parte del equipo del Instituto Nacional de Estadística e Informática (INEI) durante el Censo Nacional 2025. Próximo a obtener el título profesional con una investigación sobre la extorsión en mercados informales del emporio comercial de Gamarra. Es autor de artículos de investigación en criminología publicados en la reconocida plataforma especializada InSight Crime. Sus intereses de investigación se centran en la seguridad ciudadana, el crimen organizado, las economías ilícitas y el análisis de políticas públicas.",
+  },
+  {
+    nombre: "André Rodríguez",
+    rol: "",
+    foto: "/images/equipo/FOTO_ANDRE.jpg",
+    bio: "Estudiante en la Universidad Peruana de Ciencias Aplicadas (UPC) en Administración y Marketing y parte del programa BsBa in Business Administration en la University of Arizona. Cuenta con experiencia en análisis de datos, sistematización de información y asistencia en gestión de proyectos. Finalista del Hackathon \"Impactathon Lima 2025\", enfocado en la planeación de soluciones innovadoras sobre juventudes, desinformación e inteligencia artificial en el contexto de las elecciones generales 2026.",
+  },
+  {
+    nombre: "Jaime Olivas Vera",
+    rol: "",
+    foto: "/images/equipo/FOTO_JAIME.jpg",
+    bio: "Politólogo por la Universidad Nacional Mayor de San Marcos, con especialización en metodología y diseño de investigación, así como en el uso de herramientas cuantitativas para el análisis de datos. Actualmente se desempeña como Analista en la Dirección de Diseño y Evaluación de Políticas en Seguridad Ciudadana del Ministerio del Interior, donde contribuye al diseño y evaluación de políticas públicas en materia de seguridad ciudadana. Previamente fue Especialista en Investigaciones y Analista Social en el Observatorio del Delito y la Criminalidad de la Policía Nacional del Perú, desarrollando investigaciones aplicadas sobre criminalidad, violencia y seguridad. Asimismo, es Asistente de Investigación en Cátedra Editores, participando en la elaboración de publicaciones académicas y artículos científicos. Es autor del artículo indizado \"Violence, Coercion, and Illicit Economies: Extortion in the Urban Transport Sector of Metropolitan Lima\". Sus principales líneas de investigación incluyen la seguridad ciudadana, el crimen organizado, las economías ilícitas y el diseño y evaluación de políticas públicas.",
+  },
+];
 ---
 <BaseLayout
   title="Acerca de"
@@ -10,13 +43,20 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <div class="section-head">
         <span class="eyebrow">Equipo</span>
         <h1>Un equipo de ciencia de datos y ciencia social.</h1>
+        <p class="lede">Cinco científicos sociales con formación en ciencia de datos y experiencia en estudios de crimen y seguridad ciudadana en el Perú.</p>
       </div>
-      <p>Cinco integrantes: <b style="color:var(--ink)">Xiomara Salas Vega</b> (representante legal),
-      <b style="color:var(--ink)">Gabriel Riega Nuñez</b>, <b style="color:var(--ink)">Carlos Crespín Juarez</b>,
-      <b style="color:var(--ink)">André Rodríguez</b>, <b style="color:var(--ink)">Jaime Olivas Vera</b>.
-      Científicos sociales con formación en ciencia de datos y experiencia en estudios de crimen y seguridad
-      ciudadana en el Perú (incluye trabajo previo con el Instituto de Análisis Estratégico de la PUCP y con
-      el Ministerio del Interior).</p>
+
+      <div class="team-list" data-reveal-group>
+        {equipo.map((persona) => (
+          <div class="team-row reveal">
+            <img class="team-photo" src={persona.foto} alt={`Foto de ${persona.nombre}`} loading="lazy" />
+            <div class="team-copy">
+              <h3>{persona.nombre}{persona.rol && <span class="team-rol"> — {persona.rol}</span>}</h3>
+              <p>{persona.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -42,8 +82,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   <section class="section">
     <div class="wrap">
       <div class="footer-logos">
-        <img src="/logos/logo_pnud.png" alt="PNUD" height="64" />
-        <img src="/logos/logo_hackaton.png" alt="Hackathon RedPública Transforma" height="42" />
+        <img src="/logos/logo_pnud_trim.png" alt="PNUD" height="80" />
+        <img src="/logos/logo_hackaton.png" alt="Hackathon RedPública Transforma" height="52" style="border-radius:8px;" />
       </div>
     </div>
   </section>
@@ -51,4 +91,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <style>
   .footer-logos { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+
+  .team-list { display: flex; flex-direction: column; gap: 28px; margin-top: 8px; }
+  .team-row {
+    display: grid; grid-template-columns: 128px 1fr; gap: 24px; align-items: start;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px;
+  }
+  .team-photo {
+    width: 128px; height: 128px; border-radius: 50%; object-fit: cover;
+    border: 3px solid var(--panel-2); box-shadow: 0 4px 14px rgba(41,50,65,.12);
+  }
+  .team-copy h3 { margin-bottom: 8px; }
+  .team-rol { font-weight: 500; color: var(--ink-2); font-size: .9rem; }
+  .team-copy p { margin: 0; font-size: .88rem; line-height: 1.65; }
+
+  @media (max-width: 640px) {
+    .team-row { grid-template-columns: 1fr; text-align: center; }
+    .team-photo { margin: 0 auto; }
+  }
 </style>

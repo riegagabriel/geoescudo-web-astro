@@ -22,22 +22,43 @@ const topIiee = [...proximidad.top_iiee]
         <p class="lede">No todas las zonas con denuncias son igual de urgentes. Priorizamos por el cruce de tres señales: exposición real (IEEE), brecha de confianza (IBC) y viabilidad institucional.</p>
       </div>
 
-      <div class="mission-list" data-reveal-group>
-        <div class="mission-row reveal">
-          <span class="m-idx">0.1</span>
-          <div class="m-body"><h3>Exposición (IEEE)</h3><p>¿Cuántas denuncias ocurren cerca de este colegio y cuánta población escolar está expuesta?</p></div>
+      <div class="criteria-split">
+        <div class="criteria-image reveal">
+          <img src="/images/nino_policia.jpg" alt="Ilustración generada por IA de un encuentro de policía comunitaria con estudiantes" loading="lazy" />
+          <p class="image-caption">Imagen generada con IA</p>
         </div>
-        <div class="mission-row reveal">
-          <span class="m-idx">0.2</span>
-          <div class="m-body"><h3>Brecha (IBC)</h3><p>¿El distrito desconfía más de lo que denuncia? Eso indica cifra negra alta, no solo riesgo bajo.</p></div>
-        </div>
-        <div class="mission-row reveal">
-          <span class="m-idx">0.3</span>
-          <div class="m-body"><h3>Viabilidad</h3><p>¿Existe una comisaría, UGEL o municipio con disposición real a sostener el ciclo de 4 sesiones?</p></div>
+        <div class="mission-list" data-reveal-group>
+          <div class="mission-row reveal">
+            <span class="m-idx">0.1</span>
+            <div class="m-body"><h3>Exposición (IEEE)</h3><p>¿Cuántas denuncias ocurren cerca de este colegio y cuánta población escolar está expuesta?</p></div>
+          </div>
+          <div class="mission-row reveal">
+            <span class="m-idx">0.2</span>
+            <div class="m-body"><h3>Brecha (IBC)</h3><p>¿El distrito desconfía más de lo que denuncia? Eso indica cifra negra alta, no solo riesgo bajo.</p></div>
+          </div>
+          <div class="mission-row reveal">
+            <span class="m-idx">0.3</span>
+            <div class="m-body"><h3>Viabilidad</h3><p>¿Existe una comisaría, UGEL o municipio con disposición real a sostener el ciclo de 4 sesiones?</p></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <style>
+    .criteria-split { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: 32px; align-items: center; }
+    .criteria-image { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(41,50,65,.1); }
+    .criteria-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .criteria-image .image-caption {
+      position: absolute; left: 0; right: 0; bottom: 0; margin: 0; max-width: none;
+      font: 600 .64rem/1 var(--font-mono); letter-spacing: .04em; text-transform: uppercase;
+      color: #fff; background: rgba(41,50,65,.55); padding: 6px 10px; backdrop-filter: blur(3px);
+    }
+    @media (max-width: 860px) {
+      .criteria-split { grid-template-columns: 1fr; }
+      .criteria-image { max-height: 280px; }
+    }
+  </style>
 
   <section class="section">
     <div class="wrap">

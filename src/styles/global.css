@@ -1,13 +1,6 @@
 @import url("/tokens.css");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap");
 
-:root {
-  /* motion: curvas de easing (emil-design-eng / apple-design) — nunca ease-in en UI */
-  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
-}
-
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -33,7 +26,7 @@ main { flex: 1; }
 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
 .eyebrow, .bracket-tag {
-  font: 700 .68rem/1 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--amber);
+  font: 700 .68rem/1 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--amber-dim);
 }
 .eyebrow::before, .bracket-tag::before { content: "{ "; color: var(--ink-3); }
 .eyebrow::after, .bracket-tag::after { content: " }"; color: var(--ink-3); }
@@ -52,6 +45,7 @@ code, .mono { font-family: var(--font-mono); }
   display: inline-flex; align-items: center; gap: 6px;
   font: 600 .68rem/1 var(--font-mono); color: var(--ink-2);
   border: 1px solid var(--line); border-radius: 99px; padding: 6px 11px;
+  background: var(--panel);
 }
 .freshness-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 8px var(--good); flex: none; }
 
@@ -59,27 +53,28 @@ code, .mono { font-family: var(--font-mono); }
   display: inline-flex; align-items: center; font: 700 .64rem/1 var(--font-mono);
   letter-spacing: .05em; text-transform: uppercase; padding: 5px 9px; border-radius: 5px;
 }
-.badge.b-alerta { background: rgba(240,162,75,.15); color: var(--amber); }
-.badge.b-metodologia { background: rgba(59,130,246,.15); color: var(--blue); }
-.badge.b-actualizacion { background: rgba(52,211,153,.14); color: var(--good); }
+.badge.b-alerta { background: rgba(238,108,77,.14); color: var(--amber-dim); }
+.badge.b-metodologia { background: rgba(61,90,128,.12); color: var(--blue); }
+.badge.b-actualizacion { background: rgba(42,157,111,.14); color: var(--good); }
 
 /* Tarjeta con "spotlight" — el borde se ilumina bajo el cursor (redesign-existing-projects: surface upgrades) */
 .panel-card {
   position: relative;
   background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px;
-  transition: border-color 200ms var(--ease-out-strong), transform 200ms var(--ease-out-strong);
+  box-shadow: 0 1px 2px rgba(41,50,65,.04);
+  transition: border-color 200ms var(--ease-out-strong), transform 200ms var(--ease-out-strong), box-shadow 200ms var(--ease-out-strong);
   --mx: 50%; --my: 50%;
 }
 .panel-card::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
-  background: radial-gradient(220px circle at var(--mx) var(--my), rgba(240,162,75,.55), transparent 65%);
+  background: radial-gradient(220px circle at var(--mx) var(--my), rgba(238,108,77,.5), transparent 65%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
   opacity: 0; transition: opacity 250ms var(--ease-out-strong); pointer-events: none;
 }
 @media (hover: hover) and (pointer: fine) {
   .panel-card:hover::before { opacity: 1; }
-  .panel-card:hover { transform: translateY(-2px); }
+  .panel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(41,50,65,.08); }
 }
 
 .kpi-block .kpi-num { font: 800 2.3rem/1 var(--font-mono); color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -90,7 +85,7 @@ code, .mono { font-family: var(--font-mono); }
 
 .mission-list { display: flex; flex-direction: column; gap: 16px; }
 .mission-row { display: flex; gap: 16px; align-items: flex-start; }
-.mission-row .m-idx { font: 700 .82rem/1.4 var(--font-mono); color: var(--amber); flex: none; width: 40px; padding-top: 2px; }
+.mission-row .m-idx { font: 700 .82rem/1.4 var(--font-mono); color: var(--amber-dim); flex: none; width: 40px; padding-top: 2px; }
 .mission-row .m-body h3 { margin-bottom: 4px; }
 .mission-row .m-body p { margin: 0; font-size: .92rem; }
 
@@ -101,7 +96,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .table-scroll { overflow-x: auto; }
 tbody tr { transition: background-color 150ms var(--ease-out-strong); }
 @media (hover: hover) and (pointer: fine) {
-  tbody tr:hover { background-color: rgba(255,255,255,.03); }
+  tbody tr:hover { background-color: rgba(41,50,65,.04); }
 }
 
 .section { padding: 64px 0; border-bottom: 1px solid var(--line); }
@@ -119,16 +114,16 @@ tbody tr { transition: background-color 150ms var(--ease-out-strong); }
               box-shadow 180ms var(--ease-out-strong), transform 120ms var(--ease-out-strong), color 180ms var(--ease-out-strong);
 }
 .btn:active, .btn.is-pressed { transform: scale(0.97); transition-duration: 90ms; }
-.btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-.btn.primary:hover { background: #2f6fe0; box-shadow: 0 0 20px rgba(59,130,246,.4); }
-.btn.secondary { color: var(--ink-2); background: transparent; }
-.btn.secondary:hover { color: var(--ink); border-color: var(--blue); }
+.btn.primary { background: var(--amber); color: #fff; border-color: var(--amber); }
+.btn.primary:hover { background: var(--amber-dim); border-color: var(--amber-dim); box-shadow: 0 4px 16px rgba(238,108,77,.35); }
+.btn.secondary { color: var(--blue); background: transparent; border-color: var(--line-strong); }
+.btn.secondary:hover { color: var(--blue-dim); border-color: var(--blue); background: rgba(152,193,217,.16); }
 
 .note-callout {
-  border-left: 2px solid var(--blue-dim); padding-left: 16px; font-size: .88rem; color: var(--ink-3); max-width: 66ch;
+  border-left: 2px solid var(--blue); padding-left: 16px; font-size: .88rem; color: var(--ink-2); max-width: 66ch;
 }
 
-/* ---------- Scroll reveal (IntersectionObserver + stagger, ver src/lib/reveal.ts) ---------- */
+/* ---------- Scroll reveal (IntersectionObserver + stagger, ver src/scripts/site-motion.ts) ---------- */
 .reveal {
   opacity: 0;
   transform: translateY(18px);

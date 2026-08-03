@@ -15,20 +15,25 @@ const alumnosDocentes = afectados.alumnos_expuestos + afectados.docentes_expuest
     <div class="hero-bg" aria-hidden="true"></div>
     <SignalField />
     <div class="wrap hero-inner">
-      <span class="eyebrow">Inteligencia territorial · Lima y Callao</span>
-      <h1>Medimos el silencio<br />para romperlo.</h1>
-      <p class="lede">
-        GeoEscudo cruza las denuncias de extorsión con la desconfianza que nunca llega a
-        denunciarse, para señalar dónde intervenir primero en el entorno escolar.
-      </p>
+      <div class="hero-copy">
+        <span class="eyebrow">Inteligencia territorial · Lima y Callao</span>
+        <h1>GeoEscudo: mapear la amenaza para devolver la tranquilidad a las generaciones del futuro.</h1>
+        <p class="lede">
+          GeoEscudo cruza las denuncias de extorsión con la desconfianza que nunca llega a
+          denunciarse, para señalar dónde intervenir primero en el entorno escolar.
+        </p>
 
-      <div class="cta-row">
-        <a class="btn primary" href="/explorador/">Abrir el explorador →</a>
-        <a class="btn secondary" href="/estrategia/">Ver la estrategia de intervención</a>
+        <div class="cta-row">
+          <a class="btn primary" href="/explorador/">Abrir el explorador →</a>
+          <a class="btn secondary" href="/estrategia/">Ver la estrategia de intervención</a>
+        </div>
+
+        <div class="freshness-chip" style="margin-top:28px;">
+          <span class="dot"></span>Datos SIDPOL al corte 31/05/2026 · ENAPRES 2025
+        </div>
       </div>
-
-      <div class="freshness-chip" style="margin-top:28px;">
-        <span class="dot"></span>Datos SIDPOL al corte 31/05/2026 · ENAPRES 2025
+      <div class="hero-seal reveal">
+        <img src="/logos/geoescudo_logo_oficial.png" alt="GeoEscudo" width="220" height="120" />
       </div>
     </div>
   </section>
@@ -66,14 +71,14 @@ const alumnosDocentes = afectados.alumnos_expuestos + afectados.docentes_expuest
           <span class="m-idx">0.1</span>
           <div class="m-body">
             <h3>El mapa delimita las zonas</h3>
-            <p>El Índice de Brecha de Confianza (IBC) compara, por distrito, cuánto se denuncia frente a cuánto se desconfía. <a href="/explorador/">Explorar el mapa →</a></p>
+            <p>Aquí el mapa visualiza los datos: denuncias, victimización y la distribución territorial de las instituciones educativas. <a href="/explorador/">Explorar el mapa →</a></p>
           </div>
         </div>
         <div class="mission-row reveal">
           <span class="m-idx">0.2</span>
           <div class="m-body">
             <h3>Identificamos las IIEE priorizadas</h3>
-            <p>Cruce de exposición real (IEEE), brecha de confianza (IBC) y viabilidad institucional. <a href="/iiee-priorizadas/">Ver la priorización →</a></p>
+            <p>Aquí el mapa visualiza las instituciones educativas más afectadas y, por otro lado, la brecha entre denuncia y victimización — el registro real de extorsión. <a href="/iiee-priorizadas/">Ver la priorización →</a></p>
           </div>
         </div>
         <div class="mission-row reveal">
@@ -89,24 +94,30 @@ const alumnosDocentes = afectados.alumnos_expuestos + afectados.docentes_expuest
 </BaseLayout>
 
 <style>
-  .hero { position: relative; padding: 88px 0 56px; overflow: hidden; min-height: min(88vh, 720px); display: flex; align-items: center; }
+  .hero { position: relative; padding: 88px 0 56px; overflow: hidden; min-height: min(80vh, 640px); display: flex; align-items: center; }
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
     background:
-      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(59,130,246,.16), transparent 60%),
-      radial-gradient(ellipse 700px 420px at 100% 20%, rgba(240,162,75,.09), transparent 60%),
-      linear-gradient(180deg, #05070B 0%, #070A11 100%);
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(61,90,128,.10), transparent 60%),
+      radial-gradient(ellipse 700px 420px at 100% 20%, rgba(238,108,77,.08), transparent 60%),
+      var(--bg);
   }
-  .hero-bg::after {
-    content: ""; position: absolute; inset: 0; opacity: .04;
-    background: repeating-linear-gradient(0deg, #fff 0px, transparent 1px, transparent 3px);
+  .hero :global(.signal-field) { z-index: 0; opacity: .9; }
+  .hero-inner {
+    position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
   }
-  .hero :global(.signal-field) { z-index: 0; opacity: .85; }
-  .hero::after {
-    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(5,7,11,.75) 100%);
+  .hero-copy { flex: 1 1 480px; min-width: 0; }
+  .hero h1 { margin: 18px 0 20px; max-width: 20ch; }
+  .hero-seal {
+    flex: none; background: #fff; border: 1px solid var(--line); border-radius: 20px;
+    padding: 18px 26px; box-shadow: 0 12px 32px rgba(41,50,65,.1);
   }
-  .hero-inner { position: relative; z-index: 1; }
-  .hero h1 { margin: 18px 0 20px; max-width: 14ch; }
+  .hero-seal img { display: block; width: 220px; height: auto; }
   .kpi-open { padding-top: 8px; }
+
+  @media (max-width: 860px) {
+    .hero-inner { flex-direction: column-reverse; }
+    .hero-seal img { width: 160px; }
+  }
 </style>

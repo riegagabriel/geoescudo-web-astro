@@ -1,44 +1,47 @@
 /*
-  GeoEscudo — tokens de diseño
+  GeoEscudo — tokens de diseño (v2: paleta clara, definida por Gabriel)
   Fuente única de verdad para ambas implementaciones (Astro y HTML/CSS/JS puro).
-  Aprobado: isotipo "curvas de nivel", tipografía display = Public Sans (peso alto),
-  sin display condensada separada. Modo único oscuro (decisión intencional).
+  Reemplaza la v1 (sala de comando, fondo oscuro) por decisión explícita de
+  Gabriel: fondo claro con cyan pálido como lienzo principal.
 */
 :root {
-  /* superficies */
-  --bg: #05070B;
-  --panel: #0D1220;
-  --panel-2: #10161F;
-  --surface: #1A212C;
-  --line: rgba(88, 120, 168, .22);
-  --line-strong: rgba(88, 120, 168, .4);
+  /* superficies (claras) */
+  --bg: #E0FBFC;
+  --panel: #FFFFFF;
+  --panel-2: #EFFBFC;
+  --surface: #D3EEF0;
+  --line: rgba(41, 50, 65, .14);
+  --line-strong: rgba(41, 50, 65, .26);
 
   /* texto */
-  --ink: #E7ECF5;
-  --ink-2: #8FA3C8;
-  --ink-3: #5B6E8C;
+  --ink: #293241;
+  --ink-2: #4E5D6C;
+  --ink-3: #7A8896;
 
-  /* acento — azul: lo registrado/oficial */
-  --blue: #3B82F6;
-  --blue-dim: #1E3A8A;
+  /* acento — YInMn blue: elementos primarios, tarjetas, lo "registrado/oficial" */
+  --blue: #3D5A80;
+  --blue-dim: #29415C;
 
-  /* acento — ámbar: reservado EXCLUSIVAMENTE para cifra negra / desconfianza */
-  --amber: #F0A24B;
-  --amber-dim: #B45309;
+  /* acento — coral: botones, CTAs, highlights (acento principal de interacción) */
+  --amber: #EE6C4D;
+  --amber-dim: #C94F32;
+
+  /* secundario — powder blue: bordes, fondos sutiles, hover */
+  --powder: #98C1D9;
 
   /* semántico (independiente del acento) */
-  --good: #34D399;
-  --danger: #DC2626;
+  --good: #2A9D6F;
+  --danger: #B33F2B;
 
-  /* tipografía: dos familias, no tres.
-     Public Sans cubre display (peso 800) y cuerpo (peso 400/600) — decisión
-     explícita de Gabriel de no usar una condensada tipo cartel táctico.
-     IBM Plex Mono queda reservada a todo dato/etiqueta/cifra. */
+  /* tipografía: Public Sans (display + cuerpo) + IBM Plex Mono (datos/etiquetas) */
   --font-sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* motion */
   --ease-standard: cubic-bezier(.2, .8, .2, 1);
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   --dur-fast: 150ms;
   --dur-base: 220ms;
 }
